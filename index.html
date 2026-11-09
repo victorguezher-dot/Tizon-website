@@ -1,0 +1,1439 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0e0c0a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Crect x=%273%27 y=%2713%27 width=%2718%27 height=%275%27 rx=%272.5%27 transform=%27rotate(-18 12 15.5)%27 fill=%27%233a2e26%27/%3E%3Ccircle cx=%2718.6%27 cy=%2711.6%27 r=%273.2%27 fill=%27%23e2662f%27/%3E%3Ccircle cx=%2718.6%27 cy=%2711.6%27 r=%271.4%27 fill=%27%23f9c48f%27/%3E%3C/svg%3E">
+<style>[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}</style>
+<title>Tizón Parrilla</title>
+<meta name="description" content="Tizón · Parrilla y carnicería en Monterrey. Dos sucursales, menú en línea, carnicería por kilo y tarjetas de regalo.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: floating island nav over a charcoal page; full-bleed fire hero, then alternating editorial splits.
+   Every Phase-1 feature lives in its own view (hash-routed) so one file deploys as a multipage site. */
+:root{
+  color-scheme:dark;
+  --carbon:#0e0c0a;      /* page */
+  --hollin:#171411;      /* raised surface */
+  --tizne:#221d19;       /* inner core */
+  --ceniza:#efe8de;      /* text */
+  --humo:#efe8de9e;      /* muted text */
+  --tenue:#efe8de85;     /* faint text */
+  --linea:#efe8de1a;     /* hairline */
+  --brasa:#e2662f;       /* ember accent */
+  --brasa-hi:#f39257;
+  --cobre:#c49a6c;       /* secondary metal */
+  --ok:#86bf7f; --aviso:#e8b456; --cerrado:#d0665a;
+  --f-display:"Big Shoulders Display","Arial Narrow","Roboto Condensed",sans-serif;
+  --f-body:"Instrument Sans","Segoe UI",system-ui,sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --ease:cubic-bezier(.32,.72,0,1);
+  --r-xl:30px; --r-lg:22px;
+  --gut-l:max(16px,env(safe-area-inset-left,0px)); --gut-r:max(16px,env(safe-area-inset-right,0px));
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--carbon);color:var(--ceniza);font:16px/1.6 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--carbon)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--brasa-hi);outline-offset:3px;border-radius:8px}
+.wrap{max-width:1320px;margin-inline:auto;padding-left:var(--gut-l);padding-right:var(--gut-r)}
+.sec{padding-block:clamp(72px,10vw,136px)}
+h1,h2,h3{font-family:var(--f-display);font-weight:900;text-transform:uppercase;letter-spacing:.005em;line-height:.98;padding-top:.06em;margin:0;text-wrap:balance}
+h2{font-size:clamp(44px,7vw,92px)}
+h3{font-size:clamp(26px,3vw,34px);font-weight:800;line-height:1}
+h1,h2,h3{overflow-wrap:break-word}
+p{margin:0}
+.lead{font-size:clamp(17px,1.6vw,19px);color:var(--humo);max-width:56ch}
+.eyebrow{width:max-content;max-width:100%;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--linea);border-radius:99px;padding:5px 12px;font:500 10.5px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:var(--cobre)}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--brasa);box-shadow:0 0 10px var(--brasa)}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.stack{display:flex;flex-direction:column;gap:18px}
+
+/* Buttons: pill with nested icon island */
+.btn{display:inline-flex;align-items:center;gap:12px;border:0;border-radius:99px;padding:8px 8px 8px 22px;cursor:pointer;text-decoration:none;font-weight:600;font-size:15px;transition:transform 160ms var(--ease-out),background-color .25s ease;white-space:nowrap}
+.btn:active{transform:scale(.97)}
+.btn .ic{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;transition:transform 200ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.btn:hover .ic{transform:translate(2px,-1px) scale(1.06)}}
+.btn-fuego{background:var(--brasa);color:#160b05}
+.btn-fuego .ic{background:#160b0522}
+.btn-fuego:hover{background:var(--brasa-hi)}
+.btn-ghost{background:#efe8de0f;color:var(--ceniza);box-shadow:inset 0 0 0 1px var(--linea)}
+.btn-ghost .ic{background:#efe8de14}
+.btn-ghost:hover{background:#efe8de1a}
+.btn-sm{padding:6px 6px 6px 16px;font-size:14px}
+.btn-sm .ic{width:28px;height:28px}
+.btn-plain{padding:10px 18px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+svg.i{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+
+/* Double-bezel shell */
+.shell{background:#efe8de08;border:1px solid var(--linea);border-radius:var(--r-xl);padding:6px}
+.core{background:var(--hollin);border-radius:calc(var(--r-xl) - 6px);box-shadow:inset 0 1px 0 #efe8de12;overflow:hidden}
+
+/* Status chips */
+.st{display:inline-flex;align-items:center;gap:8px;font:500 12.5px/1.2 var(--f-mono);letter-spacing:.02em}
+.st i{width:8px;height:8px;border-radius:50%;flex:none;background:var(--ok);box-shadow:0 0 0 3px #86bf7f26}
+.st.warn i{background:var(--aviso);box-shadow:0 0 0 3px #e8b45626}
+.st.off i{background:var(--cerrado);box-shadow:0 0 0 3px #d0665a26}
+.st.on i{position:relative}
+.st.on i::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--ok);animation:ping 2.4s var(--ease-out) infinite}
+@keyframes ping{from{transform:scale(1);opacity:.55}70%,to{transform:scale(2.6);opacity:0}}
+
+/* Feature labels (demo mode) */
+.feat{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:4px 10px 4px 8px;background:#e2662f1f;color:var(--brasa-hi);font:500 10.5px/1.1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;border:1px dashed #e2662f73;width:max-content;max-width:100%}
+.feat::before{content:"◆";font-size:9px}
+body.demo-off .feat{display:none}
+
+/* NAV */
+.nav{position:fixed;z-index:30;top:calc(env(safe-area-inset-top,0px) + 14px);left:50%;transform:translateX(-50%);width:min(1180px,calc(100% - 24px));display:flex;align-items:center;gap:10px;padding:8px 8px 8px 20px;border-radius:99px;background:#100d0bcc;backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);box-shadow:inset 0 0 0 1px var(--linea),0 20px 50px -20px #000a}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:900 26px/1 var(--f-display);letter-spacing:.06em}
+.logo svg{width:22px;height:22px}
+.nav-links{display:flex;gap:4px;margin-left:18px}
+.nav-links a{text-decoration:none;padding:9px 14px;border-radius:99px;font-size:14.5px;color:var(--humo);transition:color .3s,background .3s}
+.nav-links a:hover,.nav-links a.act{color:var(--ceniza);background:#efe8de0f}
+.nav-r{margin-left:auto;display:flex;gap:8px;align-items:center}
+.suc-btn{display:flex;align-items:center;gap:10px;border:0;border-radius:99px;padding:9px 14px;background:#efe8de0d;cursor:pointer;box-shadow:inset 0 0 0 1px var(--linea);font-size:14px}
+.suc-btn b{font-weight:600}
+.suc-btn small{color:var(--tenue);font:500 10px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase}
+.cart-btn{position:relative;border:0;cursor:pointer;display:flex;align-items:center;gap:8px;border-radius:99px;padding:10px 16px;background:var(--brasa);color:#160b05;font-weight:600;font-size:14px}
+.cart-btn .n{display:inline-block;min-width:20px;height:20px;padding-inline:6px;border-radius:99px;background:#160b05;color:var(--brasa-hi);font:600 11px/20px var(--f-mono);text-align:center}
+.burger{display:none;width:42px;height:42px;border-radius:50%;border:0;background:#efe8de10;cursor:pointer;position:relative}
+.burger span{position:absolute;left:13px;right:13px;height:1.5px;background:var(--ceniza);transition:transform 300ms var(--ease-in-out)}
+.burger span:nth-child(1){top:17px}.burger span:nth-child(2){top:24px}
+.menu-open .burger span:nth-child(1){transform:translateY(3.5px) rotate(45deg)}
+.menu-open .burger span:nth-child(2){transform:translateY(-3.5px) rotate(-45deg)}
+.suc-pop{position:fixed;z-index:31;top:calc(env(safe-area-inset-top,0px) + 82px);right:max(12px,calc((100% - 1180px)/2));width:min(360px,calc(100% - 24px))}
+.suc-pop{transform-origin:top right;opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-4px) scale(.96);transition:opacity 120ms var(--ease-out),transform 120ms var(--ease-out),visibility 0s linear 120ms}
+.suc-pop.open{opacity:1;visibility:visible;pointer-events:auto;transform:none;transition:opacity 180ms var(--ease-out),transform 180ms var(--ease-out),visibility 0s}
+.suc-opt{display:flex;gap:14px;align-items:center;width:100%;border:0;background:transparent;text-align:left;padding:12px;border-radius:16px;cursor:pointer;transition:background .3s}
+.suc-opt:hover,.suc-opt.sel{background:#efe8de0d}
+.suc-opt img{width:56px;height:56px;border-radius:12px;object-fit:cover}
+.suc-opt b{display:block;font:800 22px/1 var(--f-display);text-transform:uppercase}
+.overlay{position:fixed;inset:0;z-index:29;background:#0e0c0af0;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);display:flex;flex-direction:column;justify-content:center;gap:6px;padding:100px var(--gut-r) 40px var(--gut-l);opacity:0;visibility:hidden;pointer-events:none;transition:opacity 200ms var(--ease-out),visibility 0s linear 200ms}
+.menu-open .overlay{opacity:1;visibility:visible;pointer-events:auto;transition:opacity 250ms var(--ease-out),visibility 0s}
+.overlay a{font:900 clamp(48px,14vw,80px)/1 var(--f-display);text-transform:uppercase;text-decoration:none;opacity:0;transform:translateY(24px);transition:transform 400ms var(--ease-out),opacity 400ms var(--ease-out)}
+.menu-open .overlay a{opacity:1;transform:none}
+.menu-open .overlay a:nth-child(2){transition-delay:50ms}.menu-open .overlay a:nth-child(3){transition-delay:100ms}.menu-open .overlay a:nth-child(4){transition-delay:150ms}.menu-open .overlay a:nth-child(5){transition-delay:200ms}.menu-open .overlay a:nth-child(6){transition-delay:250ms}
+
+/* HERO */
+.hero{position:relative;min-height:min(88vh,820px);min-height:min(88svh,820px);display:flex;align-items:flex-end;overflow:hidden;isolation:isolate}
+.hero-pic{position:absolute;inset:0;z-index:-2;overflow:hidden}
+.hero-pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 50%;animation:slowzoom 18s var(--ease) both}
+.hero-mark,.dsc,.ld-m{display:none}
+@keyframes slowzoom{from{transform:scale(1.08)}to{transform:scale(1)}}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#0e0c0a99 0%,#0e0c0a1a 30%,#0e0c0a66 62%,var(--carbon) 100%),linear-gradient(90deg,#0e0c0ad9 0%,#0e0c0a00 62%)}
+.hero-in{width:100%;display:grid;grid-template-columns:1.5fr 1fr;gap:40px;align-items:end;padding-top:120px;padding-bottom:48px}
+.hero h1{font-size:clamp(50px,7vw,112px);line-height:.98}
+.aviso-m{display:none;margin-top:-12px;position:relative;z-index:1}
+.hero h1 em{font-style:normal;color:var(--brasa)}
+.hero .lead{margin-top:22px;color:#efe8ded0}
+/* Hero title: El Asador word reveal */
+.hero h1 .w{display:inline-block;vertical-align:top;clip-path:inset(-.6em -.3em 0 -.3em);padding-bottom:.04em}
+.hero h1 .w>span{display:inline-block;transform:translateY(135%);animation:wup 1.1s cubic-bezier(.2,.7,.2,1) calc(.3s + var(--i) * .13s) both}
+@keyframes wup{to{transform:none}}
+@keyframes hfade{from{opacity:0;transform:translateY(14px)}}
+.hero #heroSt{animation:hfade 1s .1s both}
+.hero .lead{animation:hfade 1.1s 1s both}
+.hero-cta{animation:hfade 1.1s 1.2s both}
+.hero .aviso,.aviso-m{animation:hfade 1.1s 1.35s both}
+/* Hero CTA: one bar split in half */
+.cta-split{display:grid;grid-template-columns:1fr 1fr;gap:5px;width:min(100%,460px);padding:5px;border-radius:99px;background:#0e0c0ab8;box-shadow:inset 0 0 0 1px var(--linea),0 20px 50px -24px #000}
+.cta-split a{display:flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:0 14px;border-radius:99px;text-decoration:none;font-weight:600;font-size:15px;white-space:nowrap;transition:transform 160ms var(--ease-out),background-color .25s ease}
+.cta-split a:active{transform:scale(.97)}
+.cta-split .cs-a{background:var(--brasa);color:#160b05}
+.cta-split .cs-b{color:var(--ceniza)}
+@media (hover:hover) and (pointer:fine){.cta-split .cs-a:hover{background:var(--brasa-hi)}.cta-split .cs-b:hover{background:#efe8de12}}
+/* Ordering switched off (CONFIG.pedidos=false) */
+.sin-pedidos .cart-btn,.sin-pedidos .fab-cart,.sin-pedidos .add,.sin-pedidos .incart,.sin-pedidos .cut .buy,.sin-pedidos .solo-pedidos,.sin-pedidos .aviso [data-add]{display:none!important}
+/* Nav reserve button (shown when ordering is off) */
+.res-btn{display:none;align-items:center;gap:8px;border-radius:99px;padding:10px 16px;background:var(--brasa);color:#160b05;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap;transition:background-color .25s ease,transform 160ms var(--ease-out)}
+.sin-pedidos .res-btn{display:flex}
+.res-btn:active{transform:scale(.97)}
+@media (hover:hover) and (pointer:fine){.res-btn:hover{background:var(--brasa-hi)}}
+@keyframes waping{from{opacity:.8;transform:scale(1)}to{opacity:0;transform:scale(1.6)}}
+@media (max-width:400px){
+  .nav{padding-left:12px;gap:4px}
+  .nav-r{gap:5px}
+  .logo{font-size:22px;gap:7px}
+  .suc-btn{padding:9px 11px;gap:7px}
+  .suc-btn>svg.i{display:none}
+  .suc-seg button{padding:0 10px;font-size:13px;gap:6px}
+}
+/* Scroll-linked text */
+.sx{opacity:var(--o,1);transform:translateY(var(--ty,0px))}
+/* Floating WhatsApp (all screens) */
+.fab-wa{display:grid;place-items:center;position:fixed;z-index:21;right:max(18px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 18px);width:58px;height:58px;border-radius:50%;background:#16120fe8;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:inset 0 0 0 1px #efe8de1f,0 18px 40px -14px #000;text-decoration:none;transition:transform 160ms var(--ease-out)}
+.fab-wa:active{transform:scale(.94)}
+@media (hover:hover) and (pointer:fine){.fab-wa:hover{transform:translateY(-2px)}}
+.wa-ic{position:relative;width:46px;height:46px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:inset 0 1px 0 #ffffff4d,0 6px 16px -6px #25d366aa}
+.wa-ic svg{width:25px;height:25px}
+.wa-ic::after{content:"";position:absolute;inset:0;border-radius:50%;box-shadow:0 0 0 2px #25d366;opacity:0;animation:waping 1.6s var(--ease-out) 2.4s 2}
+/* Sucursal switch in the nav (2 sucursales) */
+.suc-seg{display:none;gap:3px;padding:4px;border-radius:99px;background:#efe8de0d;box-shadow:inset 0 0 0 1px var(--linea)}
+.has-seg .suc-seg{display:flex}
+.has-seg .suc-btn,.has-seg .suc-pop{display:none!important}
+.suc-seg button{display:flex;align-items:center;gap:7px;border:0;cursor:pointer;border-radius:99px;padding:8px 14px;background:transparent;color:var(--humo);font:600 13.5px/1 var(--f-body);white-space:nowrap;transition:background-color .3s ease,color .3s ease,transform 160ms var(--ease-out)}
+.suc-seg button.on{background:var(--brasa);color:#160b05}
+.suc-seg button:active{transform:scale(.96)}
+@media (hover:hover) and (pointer:fine){.suc-seg button:not(.on):hover{color:var(--ceniza);background:#efe8de10}}
+.suc-seg i{width:7px;height:7px;border-radius:50%;background:var(--ok);flex:none}
+.suc-seg i.warn{background:var(--aviso)}
+.suc-seg i.off{background:var(--cerrado)}
+.suc-seg button.on i{box-shadow:0 0 0 2px #160b0540}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:30px}
+.aviso .core{padding:22px;background:#171411e8}
+.aviso-k{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.aviso h3{margin-top:14px;font-size:30px}
+.aviso p{color:var(--humo);margin-top:8px;font-size:15px}
+.aviso .row{display:flex;justify-content:space-between;align-items:center;margin-top:16px;gap:12px;flex-wrap:wrap}
+.price{font:500 20px/1 var(--f-mono);color:var(--brasa-hi)}
+
+/* Marquee of facts */
+.ticker{border-block:1px solid var(--linea);overflow:hidden;padding-block:16px}
+.ticker-t{display:flex;gap:48px;width:max-content;animation:tick 40s linear infinite;font:500 13px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--tenue)}
+.ticker-t span::before{content:"✦";color:var(--brasa);margin-right:48px}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* Sucursales duo */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:48px}
+.sc .ph{position:relative;aspect-ratio:16/10;overflow:hidden}
+.sc .ph img{width:100%;height:100%;object-fit:cover;transition:transform 700ms ease}
+@media (hover:hover) and (pointer:fine){.sc:hover .ph img{transform:scale(1.04)}}
+.sc .ph .tag{position:absolute;left:14px;top:14px;background:#0e0c0ad0;border-radius:99px;padding:8px 12px}
+.sc .bd{padding:22px 22px 24px;display:flex;flex-direction:column;gap:12px}
+.sc .bd .dir{color:var(--humo);font-size:14.5px}
+.sc .bd .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.sel-badge{font:500 10.5px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--brasa-hi);border:1px solid #e2662f66;border-radius:99px;padding:6px 10px}
+
+/* Split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center}
+.split.rev>:first-child{order:2}
+.photo{border-radius:var(--r-xl);overflow:hidden;position:relative}
+.photo img{width:100%;height:100%;object-fit:cover}
+
+/* Featured cortes row */
+.cortes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.ct{min-width:0}
+.ct .ph{aspect-ratio:4/5;overflow:hidden}
+.ct .ph img{width:100%;height:100%;object-fit:cover;transition:transform 700ms ease}
+@media (hover:hover) and (pointer:fine){.ct:hover .ph img{transform:scale(1.05)}}
+.ct .bd{padding:16px 16px 18px;display:flex;flex-direction:column;gap:6px}
+.ct .bd .row{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px;flex-wrap:wrap}
+.ct h3{font-size:24px}
+.ct .bd p{color:var(--tenue);font-size:13.5px;line-height:1.45}
+
+/* Steps */
+.steps{display:grid;gap:12px;margin-top:28px}
+.step{display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;padding:16px 0;border-top:1px solid var(--linea)}
+.step b{font:900 34px/1 var(--f-display);color:var(--brasa)}
+.step strong{display:block;font-weight:600}
+.step span{color:var(--humo);font-size:14.5px}
+.save{display:flex;gap:14px;align-items:center;margin-top:24px;padding:14px 18px;border-radius:18px;background:#86bf7f14;box-shadow:inset 0 0 0 1px #86bf7f33;font-size:14.5px}
+.save b{font:900 30px/1 var(--f-display);color:var(--ok)}
+
+/* Butcher ticket */
+.ticket{background:#ece2d3;color:#1b1511;border-radius:6px;padding:22px 22px 18px;font-family:var(--f-mono);font-size:13px;position:relative;transform:rotate(-1.5deg);box-shadow:0 30px 60px -30px #000}
+.ticket::after{content:"";position:absolute;left:0;right:0;bottom:-8px;height:8px;background:radial-gradient(circle at 6px -2px,transparent 6px,#ece2d3 6.5px) 0 0/12px 8px repeat-x}
+.ticket h4{font:900 26px/1 var(--f-display);text-transform:uppercase;margin:0 0 4px}
+.ticket .ln{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed #1b151140}
+.ticket .tt{display:flex;justify-content:space-between;margin-top:10px;font-weight:500;font-size:15px}
+
+/* Gift card visual */
+.gc{aspect-ratio:1.6;border-radius:22px;position:relative;overflow:hidden;padding:clamp(18px,3vw,28px);display:flex;flex-direction:column;justify-content:space-between;background:radial-gradient(120% 90% at 85% 10%,#e2662f55,transparent 55%),radial-gradient(90% 80% at 0% 100%,#c49a6c33,transparent 60%),#15110e;box-shadow:inset 0 0 0 1px #efe8de22,0 40px 80px -40px #000;color:var(--ceniza)}
+.gc .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.gc .amt{font:900 clamp(44px,7vw,72px)/.9 var(--f-display)}
+.gc .who{font-size:14px;color:var(--humo)}
+.gc .who b{color:var(--ceniza);font-weight:600}
+.gc .msg{font-size:14px;font-style:italic;color:#efe8ded0;max-width:36ch;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.gc .bot{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;font:500 11px/1.4 var(--f-mono);letter-spacing:.08em;color:var(--tenue);text-transform:uppercase}
+
+/* Page header (subpages) */
+.ph-head{padding-top:clamp(116px,12vw,150px);padding-bottom:28px}
+.ph-head .lead{margin-top:18px}
+.ph-head .feats{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+
+/* MENU */
+.cats{position:sticky;top:calc(env(safe-area-inset-top,0px) + 84px);z-index:5;background:linear-gradient(var(--carbon) 75%,#0e0c0a00);padding-block:10px 18px}
+.cats-in{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}
+.cats-in::-webkit-scrollbar{display:none}
+.chip{border:0;cursor:pointer;flex:none;border-radius:99px;padding:10px 16px;background:#efe8de0d;box-shadow:inset 0 0 0 1px var(--linea);font-size:14px;color:var(--humo);transition:background-color .4s var(--ease),color .4s var(--ease),box-shadow .4s var(--ease),transform 120ms var(--ease-out)}
+.chip:hover{color:var(--ceniza)}
+.chip.on{background:var(--ceniza);color:var(--carbon)}
+.menu-top{display:grid;grid-template-columns:1.15fr 1fr;gap:clamp(24px,4vw,56px);align-items:end}
+.menu-hero{position:relative;isolation:isolate;overflow:hidden;min-height:min(62vh,600px);min-height:min(62svh,600px);display:flex;align-items:flex-end}
+.mh-in{width:100%;padding-top:120px;padding-bottom:clamp(28px,4vw,48px)}
+.mh-h1{font-size:clamp(64px,10vw,148px);margin-top:14px}
+.mh-in .eyebrow{background:#0e0c0ac7}
+.menu-top .feats{margin-top:16px}
+.mh-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:58% 50%;z-index:-2;animation:mhreveal 2s cubic-bezier(0.61,1,0.88,1) 200ms both}
+.feats{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+@keyframes mhreveal{from{opacity:0}to{opacity:1}}
+.menu-hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,#0e0c0a73 0%,#0e0c0a0d 30%,#0e0c0a26 62%,var(--carbon) 100%)}
+.menu-top{padding-top:8px;padding-bottom:clamp(24px,4vw,40px)}
+.cat{padding-top:clamp(64px,8vw,112px);scroll-margin-top:150px}
+.cat-h{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:12px 32px}
+.cat-h .lbl{display:block;margin-bottom:12px;color:var(--cobre)}
+.cat-h h2{font-size:clamp(44px,5.5vw,76px)}
+.cat-h p{color:var(--humo);max-width:34ch;font-size:16px}
+.cat-grid{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,4vw,56px);align-items:start;margin-top:30px}
+.cat-grid.rev .cat-ph{order:2}
+.cat-grid.solo{grid-template-columns:1fr}
+.cat-ph{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cat-ph .pc:first-child{grid-column:1/-1}
+.pc .core{display:flex;flex-direction:column;height:100%}
+.pc-im{position:relative;aspect-ratio:1;overflow:hidden}
+.pc:first-child .pc-im{aspect-ratio:16/11}
+.pc-im img{width:100%;height:100%;object-fit:cover;transition:transform 900ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){.pc:hover .pc-im img{transform:scale(1.04)}}
+.pc-im::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0e0c0a00 42%,#0e0c0ae8 100%);pointer-events:none}
+.pc-ov{position:absolute;left:0;right:0;bottom:0;z-index:1;padding:clamp(16px,2.4vw,26px);display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+.pc-ov h4{margin:0;font:900 clamp(28px,2.8vw,40px)/.95 var(--f-display);text-transform:uppercase;text-wrap:balance}
+.pc:not(:first-child) .pc-ov h4{font-size:clamp(22px,2vw,28px)}
+.pc-ov .pr{font:500 17px/1 var(--f-mono);color:var(--brasa-hi);white-space:nowrap;background:#0e0c0ad9;padding:9px 13px;border-radius:99px}
+.pc-tag{position:absolute;top:14px;left:14px;z-index:1;background:#0e0c0ad9}
+.pc-bd{padding:16px 18px 18px;display:flex;flex-direction:column;gap:14px;flex:1}
+.pc-bd p{color:var(--humo);font-size:14.5px;line-height:1.5}
+.pc-bd .t3,.mrow .t3{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:auto}
+.pc.agot .pc-im img{filter:grayscale(.85) brightness(.55)}
+.pc.agot h4,.mrow.agot h4{text-decoration:line-through;text-decoration-thickness:2px}
+.cat-ls{display:flex;flex-direction:column;position:sticky;top:calc(env(safe-area-inset-top,0px) + 160px)}
+.cat-grid.solo .cat-ls{position:static;display:grid;grid-template-columns:1fr 1fr;column-gap:48px}
+.mrow{padding:20px 0;border-bottom:1px solid var(--linea);display:flex;flex-direction:column;gap:8px}
+.mrow:first-child{border-top:1px solid var(--linea)}
+.mrow .t1{display:flex;align-items:baseline}
+.mrow h4{margin:0;font:800 24px/1.05 var(--f-display);text-transform:uppercase;min-width:0}
+.mrow .ld{flex:1;min-width:20px;border-bottom:1.5px dotted #efe8de40;margin:0 10px;transform:translateY(-6px)}
+.mrow .pr{font:500 16px/1 var(--f-mono);color:var(--brasa-hi);white-space:nowrap}
+.mrow p{color:var(--tenue);font-size:14px;line-height:1.5}
+.mrow.agot{opacity:.5}
+.pc:not(:first-child) .pc-ov{flex-direction:column;align-items:flex-start;gap:8px}
+.items{display:grid;grid-template-columns:1fr 1fr;gap:4px 36px}
+.it{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--linea);align-items:start}
+.it.nofoto{grid-template-columns:1fr}
+.it .th{width:96px;height:96px;border-radius:16px;overflow:hidden}
+.it .th img{width:100%;height:100%;object-fit:cover}
+.it .tx{min-width:0;display:flex;flex-direction:column;gap:5px}
+.it .t1{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.it h4{margin:0;font:800 22px/1.05 var(--f-display);text-transform:uppercase;letter-spacing:.01em}
+.it .pr{font:500 16px/1 var(--f-mono);color:var(--brasa-hi);white-space:nowrap}
+.it p{color:var(--tenue);font-size:14px;line-height:1.5}
+.it .t3{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px}
+.add{border:0;cursor:pointer;display:inline-flex;align-items:center;gap:8px;border-radius:99px;padding:7px 14px 7px 10px;background:#efe8de10;box-shadow:inset 0 0 0 1px var(--linea);font-size:13.5px;font-weight:500;transition:background-color .25s ease,transform 160ms var(--ease-out)}
+.add:hover{background:#e2662f2e}
+.add:active{transform:scale(.95)}
+.add .pl{width:20px;height:20px;border-radius:50%;background:var(--brasa);color:#160b05;display:grid;place-items:center;font-weight:700;line-height:1}
+.incart{display:inline-block;font:500 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ok)}
+.tagx{font:500 10.5px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--cobre);border:1px solid #c49a6c55;border-radius:99px;padding:5px 9px}
+.it.agot{opacity:.5}
+.it.agot h4{text-decoration:line-through;text-decoration-thickness:1.5px}
+.agot-b{font:500 10.5px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--cerrado);border:1px solid #d0665a77;border-radius:99px;padding:5px 9px}
+.src{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:22px;color:var(--tenue);font-size:13px}
+
+/* CARNICERÍA */
+.cuts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:20px}
+@media (min-width:1100px){.cuts{grid-template-columns:repeat(3,1fr)}}
+@media (min-width:1260px){.cuts{grid-template-columns:repeat(4,1fr)}}
+.cut .core{padding:20px;display:flex;flex-direction:column;gap:10px;height:100%}
+.cut .t1{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.cut h4{margin:0;font:800 26px/1 var(--f-display);text-transform:uppercase}
+.cut .kg{font:500 15px/1 var(--f-mono);color:var(--brasa-hi);white-space:nowrap}
+.cut p{color:var(--tenue);font-size:14px}
+.cut .spec{display:flex;gap:6px;flex-wrap:wrap}
+.cut .buy{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:12px;border-top:1px dashed var(--linea)}
+.step-w{display:flex;align-items:center;border-radius:99px;box-shadow:inset 0 0 0 1px var(--linea);background:#0e0c0a}
+.step-w button{width:38px;height:38px;border:0;background:transparent;cursor:pointer;font-size:18px;color:var(--humo);border-radius:50%;transition:transform 120ms var(--ease-out),color .2s ease}
+.step-w button:hover{color:var(--ceniza)}
+.step-w output{min-width:58px;text-align:center;font:500 14px/1 var(--f-mono)}
+.sub{font:500 16px/1 var(--f-mono);margin-left:auto}
+.note{font-size:13px;color:var(--tenue);display:flex;gap:8px;align-items:flex-start}
+
+/* REGALA */
+.gift-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(24px,4vw,56px);align-items:start;margin-top:14px}
+.form .core{padding:clamp(18px,3vw,28px);display:flex;flex-direction:column;gap:18px}
+.fld{display:flex;flex-direction:column;gap:8px}
+.fld label,.lbl{font:500 11px/1 var(--f-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--tenue)}
+.in{width:100%;border:0;border-radius:14px;padding:13px 14px;background:#0e0c0a;box-shadow:inset 0 0 0 1px var(--linea);outline:none;transition:box-shadow .3s}
+.in:focus{box-shadow:inset 0 0 0 1.5px var(--brasa)}
+textarea.in{resize:vertical;min-height:84px}
+.amts{display:flex;gap:8px;flex-wrap:wrap}
+.amts .chip{font-family:var(--f-mono)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gift-side{position:sticky;top:110px;display:flex;flex-direction:column;gap:16px}
+.perks{display:grid;gap:10px;font-size:14px;color:var(--humo)}
+.perks div{display:flex;gap:10px;align-items:flex-start}
+.perks svg{flex:none;margin-top:4px;color:var(--brasa)}
+
+/* SUCURSALES page */
+.sp{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:22px}
+.sp .ph{min-height:320px}
+.sp .ph img{width:100%;height:100%;object-fit:cover}
+.sp .bd{padding:clamp(20px,3vw,34px);display:flex;flex-direction:column;gap:16px}
+.hrs{width:100%;border-collapse:collapse;font-size:14px}
+.hrs td{padding:7px 0;border-bottom:1px solid var(--linea)}
+.hrs td:last-child{text-align:right;font-family:var(--f-mono);font-size:13px;color:var(--humo)}
+.hrs tr.today td{color:var(--ceniza)}
+.hrs tr.today td:first-child::after{content:" · hoy";color:var(--brasa-hi);font:500 11px var(--f-mono)}
+.esp{display:flex;flex-direction:column;gap:8px}
+.esp div{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:10px 12px;border-radius:12px;background:#e8b45612;box-shadow:inset 0 0 0 1px #e8b45633}
+.esp span{font-family:var(--f-mono);color:var(--aviso);font-size:12.5px;text-align:right}
+
+/* PANEL (owner view) */
+.panel-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}
+.sheet{margin-top:18px;overflow-x:auto;border-radius:18px;box-shadow:inset 0 0 0 1px var(--linea);background:var(--hollin)}
+.sheet table{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+.sheet th,.sheet td{border-right:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:0;text-align:left}
+.sheet th{font:500 10.5px/1 var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--tenue);padding:12px 12px;background:#efe8de08}
+.sheet td.rn,.sheet th.rn{width:42px;text-align:center;color:var(--tenue);font:400 11px var(--f-mono)}
+.sheet td>span{display:block;padding:11px 12px}
+.sheet input,.sheet select{width:100%;border:0;background:transparent;padding:11px 12px;outline:none;font-size:14px}
+.sheet input[type=number]{font-family:var(--f-mono)}
+.sheet input:focus,.sheet select:focus{background:#e2662f1a;box-shadow:inset 0 0 0 1.5px var(--brasa)}
+.sheet select option{background:var(--hollin)}
+.sheet .cat-r td{background:#efe8de05;color:var(--cobre);font:500 11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;padding:9px 12px}
+.sel-agotado{color:var(--cerrado)!important}.sel-no{color:var(--tenue)!important}
+.panel-note{display:flex;gap:12px;align-items:flex-start;margin-top:14px;padding:14px 16px;border-radius:16px;background:#efe8de08;box-shadow:inset 0 0 0 1px var(--linea);font-size:14px;color:var(--humo)}
+.panel-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+.panel-grid .core{padding:20px;display:flex;flex-direction:column;gap:14px}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:14.5px}
+.sw input{appearance:none;width:46px;height:26px;border-radius:99px;background:#efe8de1f;position:relative;cursor:pointer;transition:background .3s;flex:none}
+.sw input::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:var(--ceniza);transition:transform 200ms var(--ease-out)}
+.sw input:checked{background:var(--brasa)}
+.sw input:checked::after{transform:translateX(20px)}
+.qrs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
+.tent{background:#ece2d3;color:#1b1511;border-radius:18px;padding:22px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px}
+.tent .k{font:500 10.5px/1 var(--f-mono);letter-spacing:.2em;text-transform:uppercase;color:#7a5a3a}
+.tent h4{margin:0;font:900 28px/.95 var(--f-display);text-transform:uppercase}
+.tent .qr{width:150px;height:150px;background:#fff;border-radius:10px;padding:8px}
+.tent .qr svg{width:100%;height:100%}
+.tent small{font:400 11px/1.3 var(--f-mono);color:#1b151199;word-break:break-all}
+.flist{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+.flist a{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:16px;background:var(--hollin);box-shadow:inset 0 0 0 1px var(--linea);text-decoration:none;transition:background .3s}
+.flist a:hover{background:var(--tizne)}
+.flist b{display:block;font-weight:600;font-size:14.5px}
+.flist span{color:var(--tenue);font-size:13px}
+.flist em{font:900 22px/1 var(--f-display);color:var(--brasa);font-style:normal;min-width:26px}
+
+/* CART drawer */
+.scrim{position:fixed;inset:0;z-index:44;background:#0008;opacity:0;pointer-events:none;transition:opacity 300ms var(--ease-out)}
+.drawer{position:fixed;z-index:45;top:0;right:0;bottom:0;width:min(460px,100%);background:var(--hollin);box-shadow:-30px 0 80px -20px #000c,inset 1px 0 0 var(--linea);transform:translateX(102%);transition:transform 450ms var(--ease);display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);padding-right:env(safe-area-inset-right,0px)}
+.cart-open .drawer{transform:none}
+.cart-open .scrim{opacity:1;pointer-events:auto}
+.dr-h{display:flex;align-items:center;justify-content:space-between;padding:20px 22px;border-bottom:1px solid var(--linea)}
+.dr-h h3{font-size:34px}
+.x{width:40px;height:40px;border-radius:50%;border:0;background:#efe8de10;cursor:pointer;display:grid;place-items:center}
+.dr-b{flex:1;overflow-y:auto;padding:8px 22px 22px;display:flex;flex-direction:column;gap:18px}
+.ln{display:grid;grid-template-columns:1fr auto;gap:6px 12px;padding:14px 0;border-bottom:1px solid var(--linea)}
+.ln .nm{font-weight:600;font-size:15px}
+.ln .nm small{display:block;color:var(--tenue);font:400 12px/1.4 var(--f-mono);margin-top:3px}
+.ln .pp{font:500 15px/1 var(--f-mono);text-align:right}
+.ln .ctl{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.ln .step-w button{width:32px;height:32px}
+.ln .step-w output{min-width:44px;font-size:13px}
+.ln select.in{width:auto;padding:8px 12px;font-size:13.5px;border-radius:99px}
+.rm{border:0;background:none;color:var(--tenue);font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;margin-left:auto}
+.grp-k{font:500 10.5px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--cobre);margin-top:8px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:4px;border-radius:99px;background:#0e0c0a;box-shadow:inset 0 0 0 1px var(--linea)}
+.seg button{border:0;border-radius:99px;padding:10px;background:transparent;cursor:pointer;font-size:14px;color:var(--humo);transition:background-color .4s var(--ease),color .4s var(--ease),transform 120ms var(--ease-out)}
+.seg button.on{background:var(--ceniza);color:var(--carbon);font-weight:600}
+.dr-f{padding:18px 22px 22px;border-top:1px solid var(--linea);display:flex;flex-direction:column;gap:12px}
+.tot{display:flex;justify-content:space-between;align-items:baseline}
+.tot b{font:500 26px/1 var(--f-mono)}
+.empty{padding:40px 0;text-align:center;color:var(--humo);display:flex;flex-direction:column;gap:14px;align-items:center}
+.empty b{font:900 34px/1 var(--f-display);text-transform:uppercase;color:var(--ceniza)}
+.wa{justify-content:center;width:100%;padding:14px 20px;background:#25d366;color:#04230f}
+.wa:hover{background:#3ae07a}
+
+/* Floating */
+.fab-owner{position:fixed;z-index:20;left:calc(var(--gut-l) + 0px);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);display:flex;align-items:center;gap:8px;border-radius:99px;padding:10px 16px 10px 12px;background:#1b1714f0;box-shadow:inset 0 0 0 1px #e2662f55,0 16px 40px -16px #000;text-decoration:none;font-size:13.5px;font-weight:500}
+.fab-owner i{width:8px;height:8px;border-radius:50%;background:var(--brasa);box-shadow:0 0 10px var(--brasa)}
+.fab-cart{position:fixed;z-index:20;right:calc(var(--gut-r) + 0px);bottom:calc(env(safe-area-inset-bottom,0px) + 16px);display:none;align-items:center;gap:10px;border:0;cursor:pointer;border-radius:99px;padding:12px 18px;background:var(--brasa);color:#160b05;font-weight:600;font-size:14.5px;box-shadow:0 18px 40px -14px #e2662f88}
+.fab-cart.show{display:flex;animation:pop 300ms var(--ease-out)}
+@keyframes pop{from{transform:translateY(30px);opacity:0}}
+.toast{position:fixed;z-index:50;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 82px);transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--ceniza);color:var(--carbon);border-radius:99px;padding:12px 18px;font-size:14px;font-weight:500;transition:opacity 400ms var(--ease-out),transform 400ms var(--ease-out);max-width:calc(100% - 32px);text-align:center;box-shadow:0 20px 40px -10px #000a}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.cart-open .toast{bottom:auto;top:calc(env(safe-area-inset-top,0px) + 86px)}
+
+/* FOOTER */
+footer{border-top:1px solid var(--linea);padding-block:64px 110px}
+.ft{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px}
+.ft h4{margin:0 0 12px;font:500 11px/1 var(--f-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--tenue)}
+.ft p,.ft a{font-size:14.5px;color:var(--humo);text-decoration:none}
+.ft a:hover{color:var(--ceniza)}
+.ft .big{font:900 clamp(64px,10vw,120px)/.85 var(--f-display);letter-spacing:.04em}
+.credit{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:44px;padding-top:22px;border-top:1px solid var(--linea);font-size:12.5px;color:var(--tenue)}
+.credit a{display:inline-flex;gap:8px;align-items:center;text-decoration:none;color:var(--humo)}
+.credit svg{width:18px;height:18px}
+
+.tags{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.gc-mini{position:absolute;width:62%;right:3%;bottom:-34px;transform:rotate(3deg)}
+.nav-links a.own{color:var(--brasa-hi)}
+.fab-owner{transition:transform 250ms var(--ease-out),opacity 250ms var(--ease-out)}
+.fab-owner.away{transform:translateY(160%);opacity:0;pointer-events:none}
+@media (min-width:981px){.fab-owner{display:none}}
+/* Motion: feedback, edit highlight, press */
+:root{--ease-out:cubic-bezier(0.23,1,0.32,1);--ease-in-out:cubic-bezier(0.77,0,0.175,1)}
+.it,.cut,.pc,.mrow{position:relative}
+.pc.just-edited::after{inset:-4px;border-radius:34px}
+.just-edited::after{content:"";position:absolute;inset:-8px;border-radius:20px;box-shadow:0 0 0 1.5px var(--brasa),0 0 28px -6px #e2662fa6;pointer-events:none;opacity:0;animation:editPulse 1600ms var(--ease-out) 300ms both}
+.cut.just-edited::after{inset:-4px;border-radius:34px}
+@keyframes editPulse{0%{opacity:0}15%{opacity:1}35%{opacity:.3}55%{opacity:1}100%{opacity:0}}
+.dr-b{overflow-x:hidden}
+.chip:active,.seg button:active,.step-w button:active{transform:scale(.94)}
+/* Reveal */
+.rv{transition:opacity 700ms var(--ease-out),transform 700ms var(--ease-out)}
+.rv.pend{opacity:0;transform:translateY(24px)}
+
+/* Views */
+[data-page]{display:none}
+[data-page].on{display:block;animation:pagein 300ms var(--ease-out)}
+@keyframes pagein{from{opacity:0;transform:translateY(8px)}}
+@keyframes fadeonly{from{opacity:0}}
+
+@media (max-width:980px){
+  .nav-links{display:none}
+  .burger{display:block}
+  .hero-in{grid-template-columns:1fr}
+  .cortes{grid-template-columns:repeat(2,1fr)}
+  .items{grid-template-columns:1fr}
+  .gift-grid{grid-template-columns:1fr}
+  .gift-side{position:static}
+  .sp{grid-template-columns:1fr}
+  .qrs{grid-template-columns:1fr 1fr}
+  .ft{grid-template-columns:1fr 1fr}
+  .ft>:first-child{grid-column:1/-1}
+}
+@media (max-width:760px){
+  .duo,.split,.cuts,.panel-grid,.flist{grid-template-columns:1fr}
+  #resenaBox{grid-template-columns:1fr!important}
+  .hero .aviso{display:none}
+  .aviso-m{display:block}
+  .hero-in{padding-top:100px;padding-bottom:32px}
+  .hero h1{font-size:clamp(46px,13.5vw,60px)}
+  .menu-top,.cat-grid,.cat-grid.solo .cat-ls{grid-template-columns:1fr}
+  .menu-hero::after{background:linear-gradient(180deg,#0e0c0a80 0%,#0e0c0a26 40%,#0e0c0a4d 72%,var(--carbon) 100%)}
+  .mh-img{object-position:62% 50%}
+  .cat-grid.rev .cat-ph{order:0}
+  .cat-ls{position:static}
+  .cat-ph{gap:10px}
+  .pc:not(:first-child) .pc-ov{flex-direction:column;align-items:flex-start;gap:8px;padding:12px}
+  .pc:not(:first-child) .pc-bd{padding:12px}
+  .pc:not(:first-child) .pc-bd p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;font-size:13.5px}
+  .pc:first-child .pc-im{aspect-ratio:4/5}
+  .gc-mini{position:relative;width:88%;right:auto;bottom:auto;margin:-56px 0 0 auto;transform:rotate(2deg)}
+  .split.rev>:first-child{order:0}
+  .nav{padding-left:16px;gap:6px}
+  .suc-btn small,.cart-btn .cl{display:none}
+  .suc-btn{padding:9px 12px}
+  .cart-btn{padding:10px 12px}
+  .ticket{transform:none}
+  .two{grid-template-columns:1fr}
+  .qrs{grid-template-columns:1fr}
+  .it .th{width:84px;height:84px}
+  .cats{top:calc(env(safe-area-inset-top,0px) + 74px)}
+  .suc-pop{top:calc(env(safe-area-inset-top,0px) + 72px)}
+}
+@media (max-width:420px){
+  .logo span{display:none}
+  .cortes{grid-template-columns:1fr 1fr;gap:10px}
+  .ct .bd{padding:12px}
+  .ct h3{font-size:20px}
+  .ft{grid-template-columns:1fr}
+}
+/* Page transition curtain (all screens) */
+.cv{position:fixed;inset:0;z-index:70;display:grid;place-items:center;background:radial-gradient(55% 45% at 50% 52%,#e2662f38,transparent 70%),#0e0c0a;transform:translateY(100%);visibility:hidden;pointer-events:none}
+.cv.on{visibility:visible;transform:none;transition:transform 560ms cubic-bezier(0.65,0,0.35,1)}
+.cv.out{visibility:visible;transform:translateY(-100%);transition:transform 640ms cubic-bezier(0.65,0,0.35,1)}
+.cv-in{display:flex;align-items:center;gap:14px;font:900 clamp(44px,8vw,72px)/1 var(--f-display);letter-spacing:.08em;color:var(--ceniza);opacity:0;transform:translateY(10px) scale(.97);transition:opacity 260ms ease,transform 260ms ease}
+.cv.on .cv-in{opacity:1;transform:none;transition:opacity 420ms var(--ease-out) 240ms,transform 520ms var(--ease-out) 240ms}
+.cv-in svg{width:.85em;height:.85em}
+/* Carniceria compact add (all screens) */
+.addk{margin-left:auto}
+.addk .mono{font-size:13.5px}
+@media (min-width:1260px),(max-width:420px){.addk .ak{display:none}}
+.cut .buy .incart{flex-basis:100%}
+.cut .buy .incart:empty{display:none}
+/* Sucursales hours (phone collapses) */
+.hrs-full{display:flex;flex-direction:column;gap:16px}
+.hrs-today{display:flex;justify-content:space-between;gap:6px 10px;flex-wrap:wrap;padding:12px 14px;border-radius:14px;background:#efe8de08;box-shadow:inset 0 0 0 1px var(--linea);font-size:14px}
+.hrs-today .mono{color:var(--aviso);font-size:12.5px}
+@media (min-width:761px){.hrs-today,.hrs-tog{display:none}}
+/* PHONE (<=760): bottom bar, tap targets, swipe rows */
+@media (max-width:760px){
+  .suc-seg button{min-height:40px;padding:0 12px}
+  .fab-cart,.fab-cart.show{display:none!important}
+  .cta-split a{font-size:14.5px;padding:0 10px}
+  .add,.chip,.seg button,.btn-sm,.suc-btn,.cart-btn{min-height:44px}
+  .step-w button,.ln .step-w button,.burger,.x{width:44px;height:44px}
+  .rm{min-height:44px;padding:0 8px}
+  .gift-side{display:contents}
+  .gift-side>.lbl{order:-2}
+  #giftCard{order:-1}
+  .perks{order:1}
+  .cortes,.duo{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin-left:calc(var(--gut-l)*-1);margin-right:calc(var(--gut-r)*-1);padding-left:var(--gut-l);padding-right:var(--gut-r);scroll-padding-inline:var(--gut-l);scrollbar-width:none;padding-bottom:4px}
+  .cortes::-webkit-scrollbar,.duo::-webkit-scrollbar{display:none}
+  .cortes>.ct{flex:0 0 68%;scroll-snap-align:start}
+  .duo>.sc{flex:0 0 86%;scroll-snap-align:start}
+  .cortes .rv.pend,.duo .rv.pend{opacity:1;transform:none}
+  .ct .bd{padding:14px}
+  .ct h3{font-size:22px}
+  .two.stats{grid-template-columns:1fr 1fr}
+  .stats .mono{font-size:24px!important}
+  .hero-cta,.acts-m,.sc .bd .acts{display:grid;grid-template-columns:1fr;gap:8px}
+  .hero-cta .btn,.acts-m .btn,.sc .bd .acts .btn{width:100%;justify-content:space-between}
+  .sc .bd .acts .btn-plain{justify-content:center}
+  .hrs-full{display:none}
+  .hopen .hrs-full{display:flex}
+}
+/* PHONE HERO (<=760 only): vertical photo, centered, full screen, cue, mark, short lead */
+@media (max-width:760px){
+  .hero{min-height:100vh;min-height:100svh}
+  .hero-pic img{object-position:50% 40%}
+  .hero::after{background:linear-gradient(180deg,#0e0c0aa6 0%,#0e0c0a33 26%,#0e0c0a4d 48%,#0e0c0ad9 78%,var(--carbon) 100%)}
+  .hero-in{padding-bottom:112px}
+  .hero-in>div:first-child{display:flex;flex-direction:column;align-items:center;text-align:center}
+  .hero h1{margin-top:14px!important}
+  .hero .lead{margin-inline:auto}
+  .hero .ld-d{display:none}
+  .hero .ld-m{display:inline;font:500 12px/1.4 var(--f-mono);letter-spacing:.22em;text-transform:uppercase;color:#efe8dee0}
+  .hero-cta{width:100%;justify-items:center}
+  .cta-split{margin-inline:auto}
+  .hero-mark{display:block;width:46px;height:46px;margin-bottom:14px;filter:drop-shadow(0 0 14px #e2662f80);animation:hfade 1s .05s both}
+  .dsc{display:grid;justify-items:center;gap:10px;position:absolute;z-index:1;left:0;right:0;margin-inline:auto;width:max-content;bottom:calc(20px + env(safe-area-inset-bottom,0px));padding:12px 24px;border:0;background:none;cursor:pointer;font:500 10.5px/1 var(--f-mono);letter-spacing:.28em;text-transform:uppercase;color:var(--humo);animation:hfade 1s 1.7s both}
+  .dsc::after{content:"";width:1px;height:40px;background:var(--brasa);transform-origin:top;animation:dpl 2.2s ease-in-out infinite}
+  .aviso-m{scroll-margin-top:90px}
+}
+@keyframes dpl{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .hero-mark,.dsc,.dsc::after,.wa-ic::after{animation:none!important}
+  .hero-pic img,.ticker-t,.st.on i::after,.fab-cart.show,.hero #heroSt,.hero .lead,.hero-cta,.hero .aviso,.aviso-m{animation:none!important}
+  .hero h1 .w>span{animation:none!important;transform:none!important}
+  [data-page].on{animation:fadeonly .2s ease}
+  .rv.pend{opacity:1;transform:none}
+  .overlay a,.btn:active,.add:active,.chip:active,.seg button:active,.step-w button:active,.fab-owner.away,.btn .ic,.sc .ph img,.ct .ph img{transform:none!important}
+  .drawer{transition:none}
+  .toast,.toast.show{transform:translate(-50%,0)!important}
+  .suc-pop,.suc-pop.open{transform:none!important;transition:opacity 150ms ease!important}
+  .just-edited::after{opacity:1!important}
+}
+</style>
+</head>
+<body>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="arr" viewBox="0 0 16 16"><path d="M4 12 12 4M6 4h6v6"/></symbol>
+  <symbol id="wa" viewBox="0 0 24 24"><path d="M20 11.6a8.2 8.2 0 0 1-12.1 7.2L4 20l1.3-3.8A8.2 8.2 0 1 1 20 11.6Z"/><path d="M9.2 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4 0 .5.4l.7 1.6c.1.2 0 .4-.1.5l-.5.6c.6 1.1 1.4 1.9 2.5 2.5l.6-.6c.2-.2.4-.2.6-.1l1.6.7c.3.1.4.3.3.6-.2 1-.9 1.6-1.9 1.6-2.7-.1-5.4-2.8-5.6-5.4 0-.6.2-1.4 0-.9Z"/></symbol>
+  <symbol id="bag" viewBox="0 0 16 16"><path d="M3 5h10l-.8 9H3.8L3 5Z"/><path d="M5.5 5V4a2.5 2.5 0 0 1 5 0v1"/></symbol>
+  <symbol id="pin" viewBox="0 0 16 16"><path d="M8 14s4.5-4.2 4.5-7.5a4.5 4.5 0 0 0-9 0C3.5 9.8 8 14 8 14Z"/><circle cx="8" cy="6.5" r="1.6"/></symbol>
+  <symbol id="chk" viewBox="0 0 16 16"><path d="m3.5 8.5 3 3 6-7"/></symbol>
+  <symbol id="x" viewBox="0 0 16 16"><path d="m4 4 8 8M12 4l-8 8"/></symbol>
+  <symbol id="dn" viewBox="0 0 16 16"><path d="m4 6 4 4 4-4"/></symbol>
+  <symbol id="star" viewBox="0 0 16 16"><path d="m8 2.5 1.7 3.5 3.8.5-2.8 2.6.7 3.8L8 11.1 4.6 12.9l.7-3.8-2.8-2.6 3.8-.5L8 2.5Z"/></symbol>
+  <symbol id="waf" viewBox="0 0 24 24"><path d="M12 2.2a9.7 9.7 0 0 0-8.4 14.6L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2Z" fill="#fff"/><path d="M8.6 7.3c.2-.4.4-.4.7-.4h.6c.2 0 .4 0 .6.5l.8 1.9c.1.2 0 .4-.1.6l-.6.7c-.1.1-.2.3 0 .5.4.8 1 1.5 1.7 2.1.6.5 1.3.9 2 1.2.2.1.4 0 .5-.1l.7-.9c.2-.2.4-.2.6-.1l1.9.9c.2.1.4.2.4.4 0 .3 0 1-.4 1.6-.4.6-1.4 1.1-2 1.1-.5 0-1.1.2-3.4-.8-2.8-1.2-4.6-4.1-4.7-4.3-.1-.2-1.1-1.5-1.1-2.9 0-1.4.7-2.1 1-2.4Z" fill="#25d366"/></symbol>
+  <symbol id="logo" viewBox="0 0 24 24"><rect x="3" y="13" width="18" height="5" rx="2.5" transform="rotate(-18 12 15.5)" fill="#3a2e26"/><circle cx="18.6" cy="11.6" r="3.2" fill="#e2662f"/><circle cx="18.6" cy="11.6" r="1.4" fill="#f9c48f"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <a class="logo" href="#inicio" aria-label="Tizón inicio"><svg><use href="#logo"/></svg>TIZÓN</a>
+  <nav class="nav-links" aria-label="Principal">
+    <a href="#menu" data-nav="menu">Menú</a>
+    <a href="#carniceria" data-nav="carniceria">Carnicería</a>
+    <a href="#regala" data-nav="regala">Regala</a>
+    <a href="#sucursales" data-nav="sucursales">Sucursales</a>
+    <a href="#panel" data-nav="panel" class="own">Vista del dueño</a>
+  </nav>
+  <div class="nav-r">
+    <button class="suc-btn" id="sucBtn" aria-haspopup="true" aria-expanded="false"><small>Sucursal</small><b id="sucName">Valle</b><span class="st" id="sucDot"><i></i></span><svg class="i"><use href="#dn"/></svg></button>
+    <div class="suc-seg" id="sucSeg" role="group" aria-label="Sucursal"></div>
+    <button class="cart-btn" id="cartBtn" aria-label="Ver pedido"><svg class="i"><use href="#bag"/></svg><span class="cl">Pedido</span><span class="n" id="cartN">0</span></button>
+    <button class="burger" id="burger" aria-label="Abrir menú"><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="suc-pop shell" id="sucPop"><div class="core" style="padding:8px" id="sucList"></div></div>
+
+<div class="overlay" id="overlay">
+  <a href="#inicio">Inicio</a><a href="#menu">Menú</a><a href="#carniceria">Carnicería</a><a href="#regala">Regala</a><a href="#sucursales">Sucursales</a><a href="#panel" style="color:var(--brasa)">Vista del dueño</a>
+</div>
+
+<main>
+<!-- ============ INICIO ============ -->
+<section data-page="inicio">
+  <div class="hero">
+    <picture class="hero-pic"><source media="(max-width:760px)" srcset="img/17-hero-movil.webp"><img src="img/01-hero.webp" alt="Corte a la parrilla de leña con flama" fetchpriority="high"></picture>
+    <div class="wrap hero-in">
+      <div>
+        <svg class="hero-mark" aria-hidden="true"><use href="#logo"/></svg>
+        <span class="st" id="heroSt"><i></i><span></span></span>
+        <h1 style="margin-top:18px">Fuego de leña.<br><em>Cortes</em> de verdad.</h1>
+        <p class="lead"><span class="ld-d">Parrilla y carnicería en Monterrey. Dos sucursales y el mismo fuego de encino, de la brasa a tu mesa.</span><span class="ld-m">Parrilla y carnicería · Monterrey</span></p>
+        <div class="hero-cta">
+          <div class="cta-split"><a class="cs-a" href="#menu">Ver menú<svg class="i"><use href="#arr"/></svg></a><a class="cs-b" href="#sucursales">Reservar mesa<svg class="i"><use href="#arr"/></svg></a></div>
+        </div>
+      </div>
+      <div class="aviso shell" id="heroAviso"></div>
+    </div>
+    <button class="dsc" type="button" data-dsc="1" aria-label="Ver más"></button>
+  </div>
+  <div class="wrap aviso-m"><div class="aviso shell" id="heroAvisoM"></div></div>
+  <div class="ticker" aria-hidden="true"><div class="ticker-t"><span>Leña de encino</span><span>Maduración 21 días</span><span>Carnicería en sucursal</span><span>Reserva por WhatsApp</span><span>San Pedro · Cumbres</span><span>Leña de encino</span><span>Maduración 21 días</span><span>Carnicería en sucursal</span><span>Reserva por WhatsApp</span><span>San Pedro · Cumbres</span></div></div>
+
+  <div class="sec wrap">
+    <div class="stack rv">
+      <span class="eyebrow">Dos sucursales</span>
+      <h2>Un fuego,<br>dos casas.</h2>
+      <span class="feat">Multi-sucursal · horario en vivo</span>
+    </div>
+    <div class="duo" id="duo"></div>
+  </div>
+
+  <div class="sec wrap" style="padding-top:0">
+    <div class="split" style="align-items:end">
+      <div class="stack rv"><span class="eyebrow">Del fuego</span><h2>Los que<br>piden todos.</h2></div>
+      <p class="lead rv">Cortes seleccionados y madurados en casa, a la leña y al término que tú digas.</p>
+    </div>
+    <div class="cortes" id="cortes"></div>
+  </div>
+
+  <div class="sec wrap solo-pedidos" style="padding-top:0">
+    <div class="split">
+      <div class="photo rv" style="aspect-ratio:4/3.4"><img src="img/15-para-llevar.webp" alt="Bolsa de pedido para llevar en la barra" loading="lazy"></div>
+      <div class="stack rv">
+        <div class="tags"><span class="eyebrow">Para llevar</span><span class="feat">Pedidos por WhatsApp con carrito</span></div>
+        <h2>Pide directo.<br>Mismo precio.</h2>
+        <p class="lead">Sin apps de por medio y sin precios inflados. Armas tu pedido aquí y nos llega completo por WhatsApp.</p>
+        <div class="steps">
+          <div class="step"><b>1</b><div><strong>Elige tus platillos o cortes</strong><span>Del menú o de la carnicería, con el término que quieras.</span></div></div>
+          <div class="step"><b>2</b><div><strong>Envía tu pedido por WhatsApp</strong><span>Se escribe solo, con total, sucursal y hora de recogida.</span></div></div>
+          <div class="step"><b>3</b><div><strong>Recoge o recibe en casa</strong><span>Te confirmamos el tiempo en minutos.</span></div></div>
+        </div>
+        <div><a class="btn btn-fuego" href="#menu">Empezar pedido<span class="ic"><svg class="i"><use href="#arr"/></svg></span></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec wrap" style="padding-top:0">
+    <div class="split rev">
+      <div class="photo rv" style="aspect-ratio:1"><img src="img/11-carniceria.webp" alt="Corte porterhouse crudo frente a la cava de maduración" loading="lazy" style="object-position:50% 40%"></div>
+      <div class="stack rv">
+        <div class="tags"><span class="eyebrow">Carnicería Tizón</span><span class="feat">Carnicería por kilo</span></div>
+        <h2>Del gancho<br>a tu asador.</h2>
+        <p class="lead">Los mismos cortes de la parrilla, por kilo y cortados al momento. Pídelos en línea y pasa por ellos.</p>
+        <div class="ticket" id="miniTicket" style="max-width:380px;margin-top:10px"></div>
+        <div style="margin-top:18px"><a class="btn btn-ghost" href="#carniceria">Ver cortes por kilo<span class="ic"><svg class="i"><use href="#arr"/></svg></span></a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec wrap" style="padding-top:0">
+    <div class="split">
+      <div class="stack rv">
+        <div class="tags"><span class="eyebrow">Regala Tizón</span><span class="feat">Tarjetas de regalo · Mercado Pago</span></div>
+        <h2>Una cena<br>que sí se usa.</h2>
+        <p class="lead">Tarjetas de regalo digitales, válidas en ambas sucursales. Para cumpleaños, aniversarios y el intercambio de diciembre.</p>
+        <div><a class="btn btn-fuego" href="#regala">Regalar una cena<span class="ic"><svg class="i"><use href="#arr"/></svg></span></a></div>
+      </div>
+      <div class="rv" style="position:relative">
+        <div class="photo" style="aspect-ratio:16/11"><img src="img/14-regalo.webp" alt="Mesa larga puesta para una cena de celebración" loading="lazy"></div>
+        <div class="gc gc-mini" id="miniGift"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec wrap" style="padding-top:clamp(90px,10vw,140px)">
+    <div class="split rev">
+      <div class="photo rv" style="aspect-ratio:4/5;max-height:640px"><img src="img/16-parrillero.webp" alt="Parrillero frente al fuego de leña" loading="lazy"></div>
+      <div class="stack rv">
+        <span class="eyebrow">La casa</span>
+        <h2>Encino, sal<br>y paciencia.</h2>
+        <p class="lead">Encendemos la parrilla a las 11 de la mañana para tener brasa pareja al abrir. Sin gas, sin atajos. Cada corte se sella en la parte más caliente y termina despacio sobre el carbón.</p>
+        <div class="two stats" style="margin-top:14px">
+          <div class="shell"><div class="core" style="padding:18px"><div class="mono" style="font-size:30px;color:var(--brasa-hi)">21 días</div><div style="color:var(--tenue);font-size:13.5px">de maduración en cava propia</div></div></div>
+          <div class="shell"><div class="core" style="padding:18px"><div class="mono" style="font-size:30px;color:var(--brasa-hi)">480 °C</div><div style="color:var(--tenue);font-size:13.5px">en la zona de sellado</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec wrap" style="padding-top:0">
+    <div class="shell rv"><div class="core" style="padding:clamp(24px,5vw,56px);display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center" id="resenaBox">
+      <div class="stack" style="gap:12px">
+        <span class="feat">QR de reseñas en Google</span>
+        <h2 style="font-size:clamp(38px,5.5vw,70px)">¿Te gustó?<br>Cuéntalo.</h2>
+        <p class="lead">Tu reseña en Google nos ayuda a que más gente encuentre el fuego. Toma 30 segundos.</p>
+      </div>
+      <div class="stack" style="gap:10px" id="resenaBtns"></div>
+    </div></div>
+  </div>
+</section>
+
+<!-- ============ MENÚ ============ -->
+<section data-page="menu">
+  <div class="menu-hero"><img class="mh-img" src="img/10-vino.webp" alt="" aria-hidden="true">
+    <div class="wrap mh-in"><span class="eyebrow" id="menuSuc">Menú · Valle</span><h1 class="mh-h1">Menú</h1></div>
+  </div>
+  <div class="wrap menu-top">
+    <div>
+      <p class="lead">Precios en pesos, IVA incluido. Precios y disponibilidad de la sucursal que elijas, actualizados por el restaurante.</p>
+      <div class="feats"><span class="feat">Menú autoadministrable</span><span class="feat">Agotado en tiempo real</span><span class="feat">Platillo del día</span></div>
+    </div>
+    <div class="aviso shell" id="menuAviso"></div>
+  </div>
+  <div class="cats"><div class="wrap"><div class="cats-in" id="cats"></div></div></div>
+  <div class="wrap" id="menuList" style="padding-bottom:80px"></div>
+  <div class="wrap" style="padding-bottom:110px"><div class="src" id="menuSrc"></div></div>
+</section>
+
+<!-- ============ CARNICERÍA ============ -->
+<section data-page="carniceria">
+  <div class="menu-hero"><img class="mh-img" src="img/11-carniceria.webp" alt="" aria-hidden="true" style="object-position:50% 42%">
+    <div class="wrap mh-in"><span class="eyebrow">Carnicería Tizón</span><h1 class="mh-h1">Por kilo</h1></div>
+  </div>
+  <div class="wrap" style="padding-top:8px">
+    <div class="split" style="align-items:center">
+      <div class="stack" style="gap:16px">
+        <p class="lead">Cortes crudos, madurados en nuestra cava y cortados al momento. Aparta los tuyos por WhatsApp y pasa por ellos.</p>
+        <div class="feats" style="margin-top:0"><span class="feat">Carnicería por kilo</span><span class="feat">Precio por kg editable</span></div>
+        <span class="st" id="carnSt"><i></i><span></span></span>
+      </div>
+      <div class="photo" style="aspect-ratio:3/2"><img src="img/12-cortes.webp" alt="Cortes de res crudos sobre tabla de madera" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="wrap" style="padding-bottom:40px"><div class="cuts" id="cuts"></div>
+    <p class="note solo-pedidos" style="margin-top:20px"><svg class="i" style="flex:none;margin-top:3px"><use href="#chk"/></svg>El peso es aproximado. El total final se ajusta al pesar tu corte y te lo confirmamos por WhatsApp antes de prepararlo.</p>
+  </div>
+  <div class="wrap sec" style="padding-top:40px">
+    <div class="split">
+      <div class="photo" style="aspect-ratio:16/10"><img src="img/13-corte.webp" alt="Carnicero rebanando un corte" loading="lazy"></div>
+      <div class="stack">
+        <span class="eyebrow">Para el asador</span>
+        <h2 style="font-size:clamp(40px,5.5vw,70px)">¿Cuánto<br>compro?</h2>
+        <p class="lead">Calcula 350 a 400 g por persona en crudo para cortes con hueso y 250 a 300 g para arrachera o picaña. Si tienes dudas, escríbenos y te armamos la parrillada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ REGALA ============ -->
+<section data-page="regala">
+  <div class="menu-hero"><img class="mh-img" src="img/14-regalo.webp" alt="" aria-hidden="true" style="object-position:50% 55%">
+    <div class="wrap mh-in"><span class="eyebrow">Tarjetas de regalo</span><h1 class="mh-h1">Regala Tizón</h1></div>
+  </div>
+  <div class="wrap" style="padding-top:8px;padding-bottom:28px">
+    <p class="lead">Diseña la tarjeta, paga en línea y te la enviamos lista para compartir por WhatsApp o correo. Válida 12 meses en ambas sucursales.</p>
+    <div class="feats"><span class="feat">Tarjetas de regalo</span><span class="feat">Pago con Mercado Pago del restaurante</span></div>
+  </div>
+  <div class="wrap" style="padding-bottom:120px">
+    <div class="gift-grid">
+      <form class="form shell" id="giftForm" autocomplete="off"><div class="core">
+        <div class="fld"><span class="lbl">Monto</span><div class="amts" id="amts"></div>
+          <input class="in mono" id="gAmtOther" type="number" min="300" step="50" placeholder="Otro monto (mínimo $300)" hidden></div>
+        <div class="two">
+          <div class="fld"><label for="gTo">Para</label><input class="in" id="gTo" maxlength="40" value="Mariana"></div>
+          <div class="fld"><label for="gFrom">De parte de</label><input class="in" id="gFrom" maxlength="40" value="Diego"></div>
+        </div>
+        <div class="fld"><label for="gMsg">Mensaje</label><textarea class="in" id="gMsg" maxlength="140">Feliz cumpleaños. Ahora sí, el tomahawk va por mi cuenta.</textarea></div>
+        <div class="two">
+          <div class="fld"><label for="gPhone">Tu WhatsApp</label><input class="in mono" id="gPhone" inputmode="tel" placeholder="81 0000 0000"></div>
+          <div class="fld"><label for="gWhen">Entrega</label><select class="in" id="gWhen"><option>Enviar hoy</option><option>Programar para una fecha</option></select></div>
+        </div>
+        <div class="acts-m" style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px">
+          <button class="btn btn-fuego" type="button" id="gPay">Pagar con Mercado Pago<span class="ic"><svg class="i"><use href="#arr"/></svg></span></button>
+          <a class="btn btn-ghost" id="gWa" target="_blank" rel="noopener">Comprar por WhatsApp<span class="ic"><svg class="i"><use href="#wa"/></svg></span></a>
+        </div>
+      </div></form>
+      <div class="gift-side">
+        <span class="lbl">Vista previa</span>
+        <div class="gc" id="giftCard"></div>
+        <div class="perks">
+          <div><svg class="i"><use href="#chk"/></svg>El pago va directo a la cuenta del restaurante. Recibes comprobante de Mercado Pago.</div>
+          <div><svg class="i"><use href="#chk"/></svg>Código único por tarjeta. Se canjea en caja, en una o varias visitas.</div>
+          <div><svg class="i"><use href="#chk"/></svg>Válida en Valle y Cumbres, y en la carnicería.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SUCURSALES ============ -->
+<section data-page="sucursales">
+  <div class="wrap ph-head">
+    <span class="eyebrow">Ubicaciones y horario</span>
+    <h1 style="font-size:clamp(56px,8vw,112px);margin-top:16px">Sucursales</h1>
+    <p class="lead">El estado de cada sucursal se actualiza solo con su horario y los días festivos.</p>
+    <div class="feats"><span class="feat">Horario inteligente</span><span class="feat">Días festivos editables</span><span class="feat">Cómo llegar con Google Maps</span></div>
+  </div>
+  <div class="wrap" id="spList" style="padding-bottom:120px;display:flex;flex-direction:column;gap:22px"></div>
+</section>
+
+<!-- ============ PANEL ============ -->
+<section data-page="panel">
+  <div class="wrap ph-head">
+    <span class="eyebrow">Vista del dueño · demostración</span>
+    <h1 style="font-size:clamp(52px,9vw,120px);margin-top:16px">Así se<br>administra</h1>
+    <p class="lead">En el sitio real, esto es una hoja de Google Sheets que el restaurante edita desde su celular. Aquí puede probarlo: cambie un precio o marque un corte como agotado y vea el sitio actualizarse.</p>
+    <div class="panel-tabs" id="pTabs"></div>
+  </div>
+  <div class="wrap" style="padding-bottom:120px" id="pBody"></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div><div class="big">TIZÓN</div><p style="margin-top:14px;max-width:36ch">Parrilla y carnicería a la leña de encino. Monterrey, Nuevo León.</p></div>
+      <div id="ftSuc"></div>
+      <div><h4>Sitio</h4><div style="display:flex;flex-direction:column;gap:8px"><a href="#menu">Menú</a><a href="#carniceria">Carnicería</a><a href="#regala">Tarjetas de regalo</a><a href="#sucursales">Horarios</a><a href="#panel" style="color:var(--brasa-hi)">Vista del dueño</a></div></div>
+    </div>
+    <div class="credit">
+      <span>Tizón es una marca ficticia creada como sitio de demostración. Direcciones, precios y teléfonos son de ejemplo.</span>
+      <a href="https://wa.me/528131235526" target="_blank" rel="noopener"><svg viewBox="20 24 67 60"><path d="M50 84C30 80 18 62 22 34C42 40 52 60 50 84Z" fill="#efe8de"/><path d="M50 84C52 56 62 34 82 24C88 54 74 78 50 84Z" fill="#C08A3E"/></svg>Sitio por Guezher Studio</a>
+    </div>
+  </div>
+</footer>
+
+<a class="fab-owner" href="#panel" id="fabOwner"><i></i>Vista del dueño</a>
+<a class="fab-wa" id="fabWa" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp"><span class="wa-ic"><svg><use href="#waf"/></svg></span></a>
+<div class="cv" id="cv" aria-hidden="true"><div class="cv-in"><svg><use href="#logo"/></svg><span>TIZÓN</span></div></div>
+<button class="fab-cart" id="fabCart"><svg class="i"><use href="#bag"/></svg><span id="fabTxt">Ver pedido</span></button>
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-label="Tu pedido">
+  <div class="dr-h"><h3>Tu pedido</h3><button class="x" id="drClose" aria-label="Cerrar"><svg class="i"><use href="#x"/></svg></button></div>
+  <div class="dr-b" id="drBody"></div>
+  <div class="dr-f" id="drFoot"></div>
+</aside>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+/* =====================================================================
+   CONFIG — lo único que cambia por cliente.
+   sheets: pega aquí los links CSV de "Archivo → Compartir → Publicar en la web"
+   ===================================================================== */
+const CONFIG = {
+  marca: 'Tizón',
+  pedidos: false,                // true = carrito y pedidos por WhatsApp; false = solo menú y precios
+  siteUrl: 'https://victorguezher-dot.github.io/Tizon-website/',
+  zona: 'America/Monterrey',
+  sheets: { menu: '', carniceria: '', avisos: '' },
+  agotado: 'mostrar',            // 'mostrar' (tachado) u 'ocultar'
+  mercadoPago: '',               // link de cobro del restaurante; vacío = modo demo
+  sucursales: [
+    { id:'valle', nombre:'Valle', zonaTxt:'San Pedro Garza García',
+      dir:'Calzada del Valle 410, Col. Del Valle, San Pedro Garza García, N.L.',
+      whatsapp:'528131235526', telTxt:'81 3123 5526', foto:'img/02-sucursal-valle.webp',
+      ambiente:'Salón de madera nogal y luz ámbar. Barra de vinos y parrilla abierta al centro.',
+      resena:'', mesas:'Terraza, salón y privado para 14',
+      horario:{0:['13:00','20:00'],1:['13:00','23:00'],2:['13:00','23:00'],3:['13:00','23:00'],4:['13:00','23:00'],5:['13:00','01:00'],6:['13:00','01:00']},
+      carniceria:{0:['09:00','15:00'],1:['09:00','19:00'],2:['09:00','19:00'],3:['09:00','19:00'],4:['09:00','19:00'],5:['09:00','19:00'],6:['09:00','19:00']} },
+    { id:'cumbres', nombre:'Cumbres', zonaTxt:'Monterrey',
+      dir:'Av. Paseo de los Leones 2150, Cumbres, Monterrey, N.L.',
+      whatsapp:'528131235526', telTxt:'81 3123 5526', foto:'img/03-sucursal-cumbres.webp',
+      ambiente:'Comedor luminoso con bancas corridas. Ideal para comidas familiares y de oficina.',
+      resena:'', mesas:'Salón y área familiar',
+      horario:{0:['13:00','21:00'],1:null,2:['13:00','22:30'],3:['13:00','22:30'],4:['13:00','22:30'],5:['13:00','23:30'],6:['13:00','23:30']},
+      carniceria:{0:['10:00','15:00'],1:null,2:['10:00','19:00'],3:['10:00','19:00'],4:['10:00','19:00'],5:['10:00','19:00'],6:['10:00','19:00']} }
+  ],
+  especiales: [
+    { fecha:'2026-11-16', suc:'todas', abre:'13:00', cierra:'20:00', nota:'Día de la Revolución' },
+    { fecha:'2026-12-24', suc:'todas', abre:'13:00', cierra:'18:00', nota:'Nochebuena' },
+    { fecha:'2026-12-25', suc:'todas', cerrado:true, nota:'Navidad' },
+    { fecha:'2026-12-31', suc:'todas', abre:'13:00', cierra:'18:00', nota:'Fin de año' },
+    { fecha:'2027-01-01', suc:'todas', cerrado:true, nota:'Año nuevo' }
+  ],
+  regalo: { montos:[500,1000,1500,2500], vigenciaMeses:12 }
+};
+
+/* ===== Datos de respaldo (las mismas columnas que la hoja de Google) ===== */
+const MENU_BASE = [
+ {id:'taco-erizo',cat:'Entradas',nombre:'Taco de lechuga, atún y erizo',desc:'Atún aleta amarilla, mayonesa de chipotle, hueva de pez volador y erizo de Baja.',precio:245,foto:'img/07-entrada.webp',valle:'si',cumbres:'si'},
+ {id:'provoleta',cat:'Entradas',nombre:'Provoleta a la brasa',desc:'Queso provolone fundido en sartén de hierro, orégano y chimichurri.',precio:185,valle:'si',cumbres:'si'},
+ {id:'chorizo',cat:'Entradas',nombre:'Chorizo argentino',desc:'Hecho en nuestra carnicería. Con pan de leña y criolla.',precio:165,valle:'si',cumbres:'si'},
+ {id:'tuetano',cat:'Entradas',nombre:'Tuétano asado',desc:'Dos huesos al carbón, sal de grano y tortillas hechas a mano.',precio:210,valle:'si',cumbres:'no',tag:'Solo Valle'},
+ {id:'ribeye',cat:'Cortes',nombre:'Ribeye 400 g',desc:'USDA Choice, madurado 21 días. El corte de la casa.',precio:685,foto:'img/04-ribeye.webp',valle:'si',cumbres:'si',termino:true,tag:'El más pedido'},
+ {id:'tomahawk',cat:'Cortes',nombre:'Tomahawk 1.2 kg',desc:'Para compartir entre dos o tres. Se sirve rebanado en tabla.',precio:2150,foto:'img/01-hero.webp',valle:'si',cumbres:'agotado',termino:true},
+ {id:'newyork',cat:'Cortes',nombre:'New York 350 g',desc:'Más firme y con borde de grasa crujiente.',precio:590,valle:'si',cumbres:'si',termino:true},
+ {id:'picana',cat:'Cortes',nombre:'Picaña 350 g',desc:'Corte brasileño con capa de grasa, en brocheta y sal gruesa.',precio:520,valle:'si',cumbres:'si',termino:true},
+ {id:'arrachera',cat:'Cortes',nombre:'Arrachera 300 g',desc:'Marinada de la casa con naranja agria y pimienta.',precio:395,foto:'img/05-arrachera.webp',valle:'si',cumbres:'si',termino:true},
+ {id:'shortrib',cat:'De la parrilla',nombre:'Short rib ahumado',desc:'12 horas de humo de encino, glaseado de piloncillo y chile ancho.',precio:460,foto:'img/06-costillas.webp',valle:'si',cumbres:'si'},
+ {id:'costillas-cerdo',cat:'De la parrilla',nombre:'Costillas de cerdo',desc:'Medio rack con salsa de la casa y ensalada de col.',precio:380,valle:'si',cumbres:'si'},
+ {id:'pollo',cat:'De la parrilla',nombre:'Medio pollo al carbón',desc:'Adobado con achiote y cocinado a fuego lento.',precio:260,valle:'si',cumbres:'si'},
+ {id:'verduras',cat:'Guarniciones',nombre:'Verduras a la brasa',desc:'Berenjena, pimiento, tomate y champiñón con salsa verde.',precio:120,foto:'img/08-guarnicion.webp',valle:'si',cumbres:'si'},
+ {id:'papas',cat:'Guarniciones',nombre:'Papas fritas con chimichurri',desc:'Corte grueso, doble fritura.',precio:95,valle:'si',cumbres:'si'},
+ {id:'pure',cat:'Guarniciones',nombre:'Puré de papa ahumado',desc:'Mantequilla tostada y cebollín.',precio:95,valle:'si',cumbres:'si'},
+ {id:'elote',cat:'Guarniciones',nombre:'Elote tatemado',desc:'Mayonesa de limón, queso cotija y chile piquín.',precio:85,valle:'si',cumbres:'si'},
+ {id:'esfera',cat:'Postres',nombre:'Esfera de chocolate y coco',desc:'Chocolate amargo, espuma de coco, coulis de betabel y maracuyá.',precio:165,foto:'img/09-postre.webp',valle:'si',cumbres:'si'},
+ {id:'flan',cat:'Postres',nombre:'Flan de cajeta',desc:'Receta de la casa, con nuez caramelizada.',precio:115,valle:'si',cumbres:'si'},
+ {id:'copa-malbec',cat:'Bebidas',nombre:'Copa de Malbec',desc:'Mendoza, Argentina. Pregunta por la etiqueta del mes.',precio:160,foto:'img/10-vino.webp',valle:'si',cumbres:'si'},
+ {id:'botella-malbec',cat:'Bebidas',nombre:'Botella de Malbec',desc:'750 ml. Ideal con ribeye y tomahawk.',precio:890,valle:'si',cumbres:'si'},
+ {id:'limonada',cat:'Bebidas',nombre:'Limonada mineral',desc:'Con hierbabuena.',precio:65,valle:'si',cumbres:'si'}
+];
+const CARNE_BASE = [
+ {id:'k-ribeye',nombre:'Ribeye',grado:'USDA Choice',mad:'21 días',desc:'Marmoleo alto. Corte de 2.5 cm, ideal para asador.',kg:890,valle:'si',cumbres:'si'},
+ {id:'k-arrachera',nombre:'Arrachera marinada',grado:'Res nacional',mad:'Marinada 24 h',desc:'Con la marinada de la parrilla. Lista para el carbón.',kg:420,valle:'si',cumbres:'si'},
+ {id:'k-picana',nombre:'Picaña',grado:'Res nacional',mad:'14 días',desc:'Pieza completa o en filetes con su capa de grasa.',kg:560,valle:'si',cumbres:'si'},
+ {id:'k-tomahawk',nombre:'Tomahawk',grado:'USDA Prime',mad:'28 días',desc:'Piezas de 1.1 a 1.4 kg. Se vende por pieza.',kg:1150,valle:'si',cumbres:'agotado',min:1.25,paso:1.25},
+ {id:'k-newyork',nombre:'New York',grado:'USDA Choice',mad:'21 días',desc:'Firme, magro, con borde de grasa.',kg:780,valle:'si',cumbres:'si'},
+ {id:'k-costilla',nombre:'Costilla cargada',grado:'Res nacional',mad:'Fresca',desc:'Para ahumar o cocer lento. Cortada a tu gusto.',kg:340,valle:'si',cumbres:'si'},
+ {id:'k-chorizo',nombre:'Chorizo argentino',grado:'Hecho en casa',mad:'Fresco',desc:'Res y cerdo, ajo y vino tinto.',kg:260,valle:'si',cumbres:'si'},
+ {id:'k-diezmillo',nombre:'Diezmillo',grado:'Res nacional',mad:'Fresco',desc:'Económico y sabroso para carne asada.',kg:310,valle:'si',cumbres:'si'}
+];
+const AVISOS_BASE = {
+  valle:{titulo:'Short rib ahumado 12 h',detalle:'Con puré de papa ahumado y chimichurri. Solo hoy, hasta agotar.',precio:420,item:'shortrib',activo:true},
+  cumbres:{titulo:'2×1 en copa de Malbec',detalle:'De martes a jueves, de 6 a 8 pm. En salón y para llevar.',precio:null,item:'copa-malbec',activo:true}
+};
+const TERMINOS=['Rojo','Medio rojo','Término medio','Tres cuartos','Bien cocido'];
+
+/* ===== Estado ===== */
+const clone=o=>JSON.parse(JSON.stringify(o));
+const S = {
+  menu:clone(MENU_BASE), carne:clone(CARNE_BASE), avisos:clone(AVISOS_BASE),
+  cerradoHoy:{valle:false,cumbres:false},
+  suc:load('tz_suc','valle'), cart:load('tz_cart',[]),
+  entrega:'recoger', fuente:'respaldo', ptab:'menu',
+  kgSel:{}, gift:{monto:1000,otro:false}
+};
+function load(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function save(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+if(!CONFIG.sucursales.some(s=>s.id===S.suc)) S.suc='valle';
+
+/* ===== Utilidades ===== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=n=>new Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN',maximumFractionDigits:0}).format(Math.round(n));
+const kgTxt=k=>(k<1? (k*1000).toFixed(0)+' g' : (Number.isInteger(k)?k.toFixed(0):k.toFixed(2).replace(/0$/,''))+' kg');
+const sucById=id=>CONFIG.sucursales.find(s=>s.id===id);
+const cur=()=>sucById(S.suc);
+const arr='<span class="ic"><svg class="i"><use href="#arr"/></svg></span>';
+let tt; function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),2800)}
+
+/* ===== Horario inteligente ===== */
+const DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+const DIAS_C=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+function nowZ(){
+  const p={};new Intl.DateTimeFormat('en-CA',{timeZone:CONFIG.zona,year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23',weekday:'short'}).formatToParts(new Date()).forEach(x=>p[x.type]=x.value);
+  const dow=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].indexOf(p.weekday);
+  return {fecha:`${p.year}-${p.month}-${p.day}`,dow,min:(+p.hour%24)*60+(+p.minute)};
+}
+const toMin=h=>{const [a,b]=h.split(':').map(Number);return a*60+b};
+function fmt12(h){let [a,b]=h.split(':').map(Number);const s=a>=12&&a<24?'pm':'am';a=a%12||12;return `${a}:${String(b).padStart(2,'0')} ${s}`}
+function addDays(f,n){const d=new Date(f+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
+function especial(f,suc){return CONFIG.especiales.find(e=>e.fecha===f&&(e.suc==='todas'||e.suc===suc))}
+function rangoDia(s,f,dow,tipo){ // devuelve [abre,cierra] en minutos (cierra puede pasar de 1440) o null
+  const base=s[tipo]; if(tipo==='horario'){
+    const hoy=nowZ().fecha;
+    if(f===hoy&&S.cerradoHoy[s.id]) return {r:null,nota:'Cerrado hoy por evento privado'};
+    const e=especial(f,s.id);
+    if(e) return {r:e.cerrado?null:[toMin(e.abre),toMin(e.cierra)<=toMin(e.abre)?toMin(e.cierra)+1440:toMin(e.cierra)],nota:e.nota,esp:true};
+  }
+  const h=base[dow]; if(!h) return {r:null};
+  let a=toMin(h[0]),c=toMin(h[1]); if(c<=a)c+=1440; return {r:[a,c]};
+}
+function estado(s,tipo='horario'){
+  const n=nowZ();
+  // ¿sigue abierto desde ayer (después de medianoche)?
+  const ay=rangoDia(s,addDays(n.fecha,-1),(n.dow+6)%7,tipo);
+  if(ay.r&&ay.r[1]>1440&&n.min<ay.r[1]-1440){const left=ay.r[1]-1440-n.min;return abierto(left,ay.r[1]-1440)}
+  const hoy=rangoDia(s,n.fecha,n.dow,tipo);
+  if(hoy.r&&n.min>=hoy.r[0]&&n.min<hoy.r[1]){return abierto(hoy.r[1]-n.min,hoy.r[1]%1440,hoy.nota)}
+  // cerrado: ¿cuándo abre?
+  for(let i=0;i<8;i++){
+    const f=addDays(n.fecha,i),d=(n.dow+i)%7,x=rangoDia(s,f,d,tipo);
+    if(x.r&&(i>0||n.min<x.r[0])){
+      const h=`${String(Math.floor(x.r[0]/60)).padStart(2,'0')}:${String(x.r[0]%60).padStart(2,'0')}`;
+      const cu=i===0?'hoy':i===1?'mañana':'el '+DIAS[d];
+      return {open:false,tone:'off',txt:`Cerrado · abre ${cu} ${fmt12(h)}`,nota:hoy.nota};
+    }
+  }
+  return {open:false,tone:'off',txt:'Cerrado'};
+  function abierto(left,cierraMin,nota){
+    const h=`${String(Math.floor(cierraMin/60)%24).padStart(2,'0')}:${String(cierraMin%60).padStart(2,'0')}`;
+    if(left<=45) return {open:true,tone:'warn',txt:`Abierto · cierra en ${left} min`,nota};
+    const hh=Math.floor(left/60),mm=left%60;
+    return {open:true,tone:'on',txt:`Abierto · cierra ${fmt12(h)}`,sub:`${hh} h ${mm} min`,nota};
+  }
+}
+const stHTML=(e,extra='')=>`<span class="st ${e.tone}"><i></i><span>${esc(e.txt)}${extra}</span></span>`;
+function setSt(el,e,extra=''){if(!el)return;el.className='st '+e.tone;el.innerHTML=`<i></i><span>${esc(e.txt)}${extra}</span>`}
+
+/* ===== Disponibilidad ===== */
+const disp=(it,suc=S.suc)=>(it[suc]||'si').toLowerCase().replace('í','i');
+const visible=it=>disp(it)!=='no'&&!(disp(it)==='agotado'&&CONFIG.agotado==='ocultar');
+
+/* ===== Carrito ===== */
+function cartAdd(item){
+  const k=item.key; const ex=S.cart.find(l=>l.key===k);
+  if(ex){ if(item.tipo==='carne') ex.kg=+(ex.kg+item.kg).toFixed(2); else ex.qty++; }
+  else S.cart.push(item);
+  save('tz_cart',S.cart); renderCart(); renderBadges(); bump();
+}
+function lineTotal(l){return l.tipo==='carne'? l.kg*l.kgPrecio : l.qty*l.precio}
+function cartTotal(){return S.cart.reduce((a,l)=>a+lineTotal(l),0)}
+function addMenu(id){
+  const it=S.menu.find(x=>x.id===id); if(!it||disp(it)!=='si') return;
+  cartAdd({key:'m:'+id,tipo:'menu',id,nombre:it.nombre,precio:it.precio,qty:1,termino:it.termino?'Término medio':null});
+  toast(`${it.nombre} agregado al pedido`);
+}
+function addCarne(id){
+  const c=S.carne.find(x=>x.id===id); if(!c||disp(c)!=='si') return;
+  const kg=S.kgSel[id]??(c.min||1);
+  cartAdd({key:'c:'+id,tipo:'carne',id,nombre:c.nombre,kgPrecio:c.kg,kg,paso:c.paso||.25,min:c.min||.5});
+  toast(`${kgTxt(kg)} de ${c.nombre} agregado`);
+}
+function renderBadges(){
+  const n=S.cart.reduce((a,l)=>a+(l.tipo==='carne'?1:l.qty),0);
+  $('#cartN').textContent=n;
+  const f=$('#fabCart'); f.classList.toggle('show',n>0);
+  $('#fabTxt').innerHTML=`Ver pedido · <span class="mono">${money(cartTotal())}</span>`;
+  $$('[data-incart]').forEach(el=>{const k=el.dataset.incart,l=S.cart.find(x=>x.key===k),txt=l?(l.tipo==='carne'?`${kgTxt(l.kg)} en pedido`:`×${l.qty} en pedido`):'',pk=k+'|'+(el.closest('[data-page]')?.dataset.page||'');el.textContent=txt;if(txt&&(pk in prevLbl)&&prevLbl[pk]!==txt&&el.offsetParent)pulseIn(el);prevLbl[pk]=txt});
+}
+function waLink(num,msg){return `https://wa.me/${num}?text=${encodeURIComponent(msg)}`}
+function orderMsg(){
+  const s=cur(), f=v=>($('#'+v)?.value||'').trim();
+  const m=S.cart.filter(l=>l.tipo==='menu'), c=S.cart.filter(l=>l.tipo==='carne');
+  let t=`Hola ${CONFIG.marca} ${s.nombre} 👋 Quiero hacer un pedido ${S.entrega==='recoger'?'para recoger':'a domicilio'}:\n`;
+  if(m.length){t+=`\n*PARRILLA*\n`+m.map(l=>`• ${l.qty}× ${l.nombre}${l.termino?` (${l.termino})`:''} — ${money(lineTotal(l))}`).join('\n')+'\n'}
+  if(c.length){t+=`\n*CARNICERÍA*\n`+c.map(l=>`• ${kgTxt(l.kg)} ${l.nombre} — ${money(lineTotal(l))}`).join('\n')+'\n'}
+  t+=`\n*Total estimado: ${money(cartTotal())}*\n`;
+  t+=`\nNombre: ${f('oNombre')||'—'}`;
+  t+=`\nHora: ${f('oHora')||'Lo antes posible'}`;
+  if(S.entrega==='domicilio') t+=`\nDirección: ${f('oDir')||'—'}`;
+  if(f('oNotas')) t+=`\nNotas: ${f('oNotas')}`;
+  return t;
+}
+function renderCart(){
+  const b=$('#drBody'), ft=$('#drFoot'), s=cur();
+  if(!S.cart.length){
+    b.innerHTML=`<div class="empty"><b>Aún sin brasa</b><p>Agrega platillos del menú o cortes por kilo.</p><a class="btn btn-fuego btn-sm" href="#menu" data-close>Ver menú${arr}</a></div>`;
+    ft.innerHTML=''; return;
+  }
+  const grp=(tipo,tit)=>{const ls=S.cart.filter(l=>l.tipo===tipo);if(!ls.length)return'';return `<div class="grp-k">${tit}</div>`+ls.map(l=>{
+    const d=(tipo==='menu'?S.menu:S.carne).find(x=>x.id===l.id); const ag=d&&disp(d)!=='si';
+    return `<div class="ln"><div class="nm">${esc(l.nombre)}<small>${tipo==='menu'?money(l.precio)+' c/u':money(l.kgPrecio)+' / kg · peso aprox.'}${ag?' · <span style="color:var(--cerrado)">no disponible en '+esc(s.nombre)+'</span>':''}</small></div><div class="pp">${money(lineTotal(l))}</div>
+    <div class="ctl"><div class="step-w"><button data-q="${l.key}" data-d="-1" aria-label="Menos">−</button><output>${tipo==='menu'?l.qty:kgTxt(l.kg)}</output><button data-q="${l.key}" data-d="1" aria-label="Más">+</button></div>
+    ${l.termino?`<select class="in" data-term="${l.key}" aria-label="Término">${TERMINOS.map(t=>`<option${t===l.termino?' selected':''}>${t}</option>`).join('')}</select>`:''}
+    <button class="rm" data-rm="${l.key}">Quitar</button></div></div>`}).join('')};
+  const keep=id=>esc($('#'+id)?.value||'');
+  b.innerHTML=`${grp('menu','Parrilla')}${grp('carne','Carnicería')}
+   <div class="fld"><span class="lbl">Sucursal</span><div class="seg">${CONFIG.sucursales.map(x=>`<button data-osuc="${x.id}" class="${x.id===S.suc?'on':''}">${esc(x.nombre)}</button>`).join('')}</div>${stHTML(estado(s))}</div>
+   <div class="fld"><span class="lbl">Entrega</span><div class="seg"><button data-ent="recoger" class="${S.entrega==='recoger'?'on':''}">Recoger</button><button data-ent="domicilio" class="${S.entrega==='domicilio'?'on':''}">A domicilio</button></div></div>
+   <div class="fld"><label for="oNombre">Nombre</label><input class="in" id="oNombre" placeholder="¿A nombre de quién?" value="${keep('oNombre')}"></div>
+   <div class="fld"><label for="oHora">Hora</label><input class="in" id="oHora" placeholder="Lo antes posible" value="${keep('oHora')}"></div>
+   ${S.entrega==='domicilio'?`<div class="fld"><label for="oDir">Dirección</label><input class="in" id="oDir" placeholder="Calle, número y colonia" value="${keep('oDir')}"><span class="note">El costo de envío se confirma por WhatsApp según tu zona.</span></div>`:''}
+   <div class="fld"><label for="oNotas">Notas</label><input class="in" id="oNotas" placeholder="Sin cebolla, salsa aparte…" value="${keep('oNotas')}"></div>`;
+  ft.innerHTML=`<div class="tot"><span class="lbl">Total estimado</span><b>${money(cartTotal())}</b></div>
+   <a class="btn wa" id="sendWa" target="_blank" rel="noopener" href="${waLink(s.whatsapp,orderMsg())}"><svg class="i" style="width:20px;height:20px"><use href="#wa"/></svg>Enviar pedido a ${esc(s.nombre)} por WhatsApp</a>
+   <span class="note" style="justify-content:center">Se abre WhatsApp con tu pedido escrito. Sin comisión de apps.</span>`;
+}
+function refreshWa(){const a=$('#sendWa');if(a)a.href=waLink(cur().whatsapp,orderMsg())}
+function openCart(o=true){document.body.classList.toggle('cart-open',o);if(o)renderCart()}
+
+/* ===== Render: inicio ===== */
+function avisoHTML(){
+  const a=S.avisos[S.suc], s=cur(), e=estado(s);
+  if(!a||!a.activo||!a.titulo) return `<div class="core"><div class="aviso-k"><span class="lbl">${esc(s.nombre)}</span>${stHTML(e)}</div><h3>Hoy en ${esc(s.nombre)}</h3><p>${esc(s.ambiente)}</p></div>`;
+  const it=S.menu.find(x=>x.id===a.item);
+  return `<div class="core"><div class="aviso-k"><span class="feat">Platillo del día</span>${stHTML(e)}</div>
+   <h3>${esc(a.titulo)}</h3><p>${esc(a.detalle)}</p>
+   <div class="row">${a.precio?`<span class="price">${money(a.precio)}</span>`:`<span class="lbl">Hoy en ${esc(s.nombre)}</span>`}
+   ${it&&disp(it)==='si'?`<button class="btn btn-ghost btn-sm" data-add="${it.id}">Agregar al pedido<span class="ic"><svg class="i"><use href="#bag"/></svg></span></button>`:''}</div></div>`;
+}
+function renderInicio(){
+  $('#heroAviso').innerHTML=avisoHTML();$('#heroAvisoM').innerHTML=avisoHTML();
+  setSt($('#heroSt'),estado(cur()),` · ${cur().nombre}`);
+  $('#duo').innerHTML=CONFIG.sucursales.map(s=>{const e=estado(s),sel=s.id===S.suc;return `<article class="sc shell rv"><div class="core">
+    <div class="ph"><img src="${s.foto}" alt="Interior de ${esc(CONFIG.marca)} ${esc(s.nombre)}" loading="lazy"><span class="tag">${stHTML(e)}</span></div>
+    <div class="bd"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><h3>${esc(s.nombre)}</h3>${sel?'<span class="sel-badge">Seleccionada</span>':''}</div>
+    <p class="dir">${esc(s.ambiente)}</p><p class="dir" style="display:flex;gap:8px"><svg class="i" style="flex:none;margin-top:4px"><use href="#pin"/></svg>${esc(s.dir)}</p>
+    <div class="acts">${sel?`<a class="btn btn-fuego btn-sm" href="#menu">Ver menú${arr}</a>`:`<button class="btn btn-ghost btn-sm" data-suc="${s.id}">Elegir ${esc(s.nombre)}${arr}</button>`}
+    <a class="btn btn-ghost btn-plain btn-sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.dir)}">Cómo llegar</a></div></div></div></article>`}).join('');
+  const dest=['ribeye','tomahawk','arrachera','shortrib'].map(id=>S.menu.find(x=>x.id===id)).filter(Boolean);
+  $('#cortes').innerHTML=dest.map(it=>{const d=disp(it);return `<article class="ct shell rv"><div class="core"><div class="ph"><img src="${it.foto}" alt="${esc(it.nombre)}" loading="lazy"></div>
+    <div class="bd"><h3>${esc(it.nombre)}</h3><p>${esc(it.desc)}</p><div class="row"><span class="price" style="font-size:16px">${money(it.precio)}</span>
+    ${d==='si'?`<button class="add" data-add="${it.id}"><span class="pl">+</span>Agregar</button>`:d==='agotado'?'<span class="agot-b">Agotado hoy</span>':'<span class="tagx">Otra sucursal</span>'}</div><span class="incart" data-incart="m:${it.id}"></span></div></div></article>`}).join('');
+  const cuts=S.carne.filter(c=>['k-ribeye','k-arrachera','k-picana','k-chorizo'].includes(c.id));
+  $('#miniTicket').innerHTML=`<h4>Carnicería Tizón</h4><div style="font-size:11px;opacity:.7;margin-bottom:8px">PRECIO POR KG · ${esc(cur().nombre.toUpperCase())}</div>`+cuts.map(c=>`<div class="ln"><span>${esc(c.nombre)}</span><span>${disp(c)==='agotado'?'AGOTADO':money(c.kg)}</span></div>`).join('')+`<div class="tt"><span>Cortado al momento</span><span>✦</span></div>`;
+  $('#miniGift').innerHTML=giftCardHTML(1000,'Mariana','Diego','',true);
+  const s=cur();
+  $('#resenaBtns').innerHTML=CONFIG.sucursales.map(x=>`<button class="btn ${x.id===s.id?'btn-fuego':'btn-ghost'} btn-sm" data-resena="${x.id}">Reseña para ${esc(x.nombre)}<span class="ic"><svg class="i"><use href="#star"/></svg></span></button>`).join('');
+}
+
+/* ===== Render: menú ===== */
+let catOn=null;
+const CAT_INFO={'Entradas':'Para abrir la mesa mientras se calienta la parrilla.','Cortes':'Madurados 21 días en cava propia y sellados a la leña de encino.','De la parrilla':'Humo lento de encino, glaseados de la casa y paciencia.','Guarniciones':'Para acompañar el corte.','Postres':'El cierre de la noche.','Bebidas':'Vinos argentinos y bebidas de la casa.'};
+function renderMenu(){
+  const s=cur(); $('#menuSuc').textContent=`Menú · ${s.nombre}`;
+  $('#menuAviso').innerHTML=avisoHTML();
+  const cats=[...new Set(S.menu.filter(visible).map(x=>x.cat))];
+  $('#cats').innerHTML=cats.map(c=>`<button class="chip${c===catOn?' on':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('');
+  const act=(it,d)=>d==='agotado'?`<span class="agot-b">Agotado hoy en ${esc(s.nombre)}</span>`:`<button class="add" data-add="${it.id}"><span class="pl">+</span>Agregar</button>`;
+  $('#menuList').innerHTML=cats.map((c,ci)=>{
+    const its=S.menu.filter(x=>x.cat===c&&visible(x)),ph=its.filter(x=>x.foto),ls=its.filter(x=>!x.foto);
+    const pcs=ph.map(it=>{const d=disp(it);return `<article data-id="${it.id}" class="pc shell rv${d==='agotado'?' agot':''}"><div class="core"><div class="pc-im"><img src="${it.foto}" alt="${esc(it.nombre)}" loading="lazy">${it.tag?`<span class="tagx pc-tag">${esc(it.tag)}</span>`:''}<div class="pc-ov"><h4>${esc(it.nombre)}</h4><span class="pr">${money(it.precio)}</span></div></div><div class="pc-bd"><p>${esc(it.desc)}</p><div class="t3">${act(it,d)}<span class="incart" data-incart="m:${it.id}"></span></div></div></div></article>`}).join('');
+    const rows=ls.map(it=>{const d=disp(it);return `<div data-id="${it.id}" class="mrow${d==='agotado'?' agot':''}"><div class="t1"><h4>${esc(it.nombre)}</h4><span class="ld"></span><span class="pr">${money(it.precio)}</span></div><p>${esc(it.desc)}</p><div class="t3">${act(it,d)}${it.tag?`<span class="tagx">${esc(it.tag)}</span>`:''}<span class="incart" data-incart="m:${it.id}"></span></div></div>`}).join('');
+    return `<div class="cat" id="cat-${slug(c)}"><div class="cat-h"><div><span class="lbl">${String(ci+1).padStart(2,'0')} · ${its.length} platillos</span><h2>${esc(c)}</h2></div>${CAT_INFO[c]?`<p>${esc(CAT_INFO[c])}</p>`:''}</div><div class="cat-grid${ci%2?' rev':''}${!ph.length||!ls.length?' solo':''}">${ph.length?`<div class="cat-ph">${pcs}</div>`:''}${ls.length?`<div class="cat-ls">${rows}</div>`:''}</div></div>`}).join('');
+  $('#menuSrc').innerHTML=`<span class="feat">Fuente de datos</span><span>${S.fuente==='sheets'?'Menú cargado en vivo desde Google Sheets.':'Menú de respaldo integrado. Al conectar la hoja de Google, los cambios del restaurante aparecen aquí en minutos.'}</span>`;
+  renderBadges();
+}
+const slug=s=>s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-');
+
+/* ===== Render: carnicería ===== */
+function renderCarne(){
+  const s=cur(); setSt($('#carnSt'),estado(s,'carniceria'),` · Carnicería ${s.nombre}`);
+  $('#cuts').innerHTML=S.carne.filter(visible).map(c=>{const d=disp(c),kg=S.kgSel[c.id]??(c.min||1);return `<div data-id="${c.id}" class="cut shell${d==='agotado'?' agot':''}" style="${d==='agotado'?'opacity:.55':''}"><div class="core">
+    <div class="t1"><h4>${esc(c.nombre)}</h4><span class="kg">${money(c.kg)}<span style="color:var(--tenue);font-size:12px"> /kg</span></span></div>
+    <div class="spec"><span class="tagx">${esc(c.grado)}</span><span class="tagx">${esc(c.mad)}</span></div><p>${esc(c.desc)}</p>
+    <div class="buy">${d==='agotado'?`<span class="agot-b">Agotado hoy en ${esc(s.nombre)}</span>`:`<div class="step-w"><button data-kg="${c.id}" data-d="-1" aria-label="Menos peso">−</button><output>${kgTxt(kg)}</output><button data-kg="${c.id}" data-d="1" aria-label="Más peso">+</button></div>
+    <button class="add addk" data-addk="${c.id}" aria-label="Agregar ${esc(c.nombre)} al pedido"><span class="pl">+</span><span class="ak">Agregar · </span><span class="mono">${money(kg*c.kg)}</span></button>`}
+    <span class="incart" data-incart="c:${c.id}"></span></div></div></div>`}).join('');
+  renderBadges();
+}
+
+/* ===== Render: regalo ===== */
+function giftCardHTML(m,para,de,msg,mini){
+  return `<div class="top"><div style="display:flex;align-items:center;gap:8px;font:900 ${mini?18:22}px/1 var(--f-display);letter-spacing:.08em"><svg style="width:20px;height:20px"><use href="#logo"/></svg>TIZÓN</div>${mini?'':'<span style="font:500 10px/1 var(--f-mono);letter-spacing:.18em;color:var(--cobre);white-space:nowrap">TARJETA DE REGALO</span>'}</div>
+   <div><div class="amt">${money(m)}</div>${mini?'':`<div class="msg" style="margin-top:10px">${msg?'“'+esc(msg)+'”':''}</div>`}</div>
+   <div class="bot"><div class="who" style="text-transform:none;letter-spacing:0;font-family:var(--f-body)">Para <b>${esc(para||'—')}</b><br>De <b>${esc(de||'—')}</b></div><div style="text-align:right">TZN-${mini?'7Q4K':'XXXX'}<br>Valle · Cumbres</div></div>`;
+}
+function giftAmt(){return S.gift.otro?Math.max(0,+$('#gAmtOther').value||0):S.gift.monto}
+function renderGift(){
+  $('#amts').innerHTML=CONFIG.regalo.montos.map(m=>`<button type="button" class="chip${!S.gift.otro&&S.gift.monto===m?' on':''}" data-amt="${m}">${money(m)}</button>`).join('')+`<button type="button" class="chip${S.gift.otro?' on':''}" data-amt="otro">Otro</button>`;
+  $('#gAmtOther').hidden=!S.gift.otro; updGift();
+}
+function updGift(){
+  const m=giftAmt(),v=id=>$('#'+id).value.trim();
+  $('#giftCard').innerHTML=giftCardHTML(m,v('gTo'),v('gFrom'),v('gMsg'));
+  const msg=`Hola ${CONFIG.marca} 👋 Quiero comprar una tarjeta de regalo:\n\n• Monto: ${money(m)}\n• Para: ${v('gTo')||'—'}\n• De: ${v('gFrom')||'—'}\n• Mensaje: ${v('gMsg')||'—'}\n• Entrega: ${v('gWhen')}\n• Mi WhatsApp: ${v('gPhone')||'—'}`;
+  $('#gWa').href=waLink(cur().whatsapp,msg);
+  const ok=m>=300; $('#gPay').disabled=!ok; $('#gWa').toggleAttribute('disabled',!ok);
+}
+
+/* ===== Render: sucursales ===== */
+function renderSucursales(){
+  const n=nowZ();
+  $('#spList').innerHTML=CONFIG.sucursales.map(s=>{const e=estado(s),ec=estado(s,'carniceria');
+    const prox=CONFIG.especiales.filter(x=>x.fecha>=n.fecha&&(x.suc==='todas'||x.suc===s.id)).slice(0,4);
+    const fila=(i)=>{const h=s.horario[i];return `<tr class="${i===n.dow?'today':''}"><td>${DIAS[i][0].toUpperCase()+DIAS[i].slice(1)}</td><td>${h?fmt12(h[0])+' – '+fmt12(h[1]):'Cerrado'}</td></tr>`};
+    const hh=s.horario[n.dow],hoyTxt=S.cerradoHoy[s.id]||!hh?'Cerrado':fmt12(hh[0])+' – '+fmt12(hh[1]),op=S.hrsOpen.has(s.id);
+    return `<article class="shell rv${op?' hopen':''}"><div class="core sp"><div class="ph"><img src="${s.foto}" alt="Interior de ${esc(CONFIG.marca)} ${esc(s.nombre)}" loading="lazy"></div>
+    <div class="bd"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap"><h2 style="font-size:clamp(40px,4.5vw,60px)">${esc(s.nombre)}</h2>${s.id===S.suc?'<span class="sel-badge">Seleccionada</span>':`<button class="btn btn-ghost btn-sm" data-suc="${s.id}">Elegir${arr}</button>`}</div>
+    <div style="display:flex;flex-direction:column;gap:6px">${stHTML(e,e.nota?' · '+esc(e.nota):'')}${stHTML(ec).replace('<span>','<span>Carnicería: ')}</div>
+    <p style="color:var(--humo);display:flex;gap:8px"><svg class="i" style="flex:none;margin-top:5px"><use href="#pin"/></svg>${esc(s.dir)}</p>
+    <div class="hrs-today"><span>Hoy · ${hoyTxt}</span>${prox[0]?`<span class="mono">${esc(prox[0].nota)} · ${fechaCorta(prox[0].fecha)}</span>`:''}</div>
+    <div class="hrs-full"><table class="hrs"><tbody>${[1,2,3,4,5,6,0].map(fila).join('')}</tbody></table>
+    ${prox.length?`<div class="esp"><span class="lbl" style="font-size:10.5px">Horarios especiales</span>${prox.map(x=>`<div>${esc(x.nota)}<span>${fechaCorta(x.fecha)} · ${x.cerrado?'Cerrado':fmt12(x.abre)+' – '+fmt12(x.cierra)}</span></div>`).join('')}</div>`:''}</div>
+    <button class="btn btn-ghost btn-sm hrs-tog" data-hrs="${s.id}" style="width:100%;justify-content:space-between">${op?'Ocultar horario':'Ver horario completo'}<span class="ic"><svg class="i" style="transform:rotate(${op?180:0}deg)"><use href="#dn"/></svg></span></button>
+    <div class="acts-m" style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn btn-fuego btn-sm" target="_blank" rel="noopener" href="${waLink(s.whatsapp,`Hola ${CONFIG.marca} ${s.nombre} 👋 Quiero reservar una mesa.\n\nPersonas: \nFecha: \nHora: \nNombre: `)}">Reservar por WhatsApp<span class="ic"><svg class="i"><use href="#wa"/></svg></span></a>
+    <a class="btn btn-ghost btn-sm" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(s.dir)}">Cómo llegar${arr}</a></div>
+    <p class="mono" style="font-size:13px;color:var(--tenue)">WhatsApp ${esc(s.telTxt)} · ${esc(s.mesas)}</p></div></div></article>`}).join('');
+  $('#ftSuc').innerHTML='<h4>Sucursales</h4>'+CONFIG.sucursales.map(s=>`<p style="margin-bottom:12px"><b style="color:var(--ceniza)">${esc(s.nombre)}</b><br>${esc(s.dir)}<br>${stHTML(estado(s))}</p>`).join('');
+}
+function fechaCorta(f){const d=new Date(f+'T12:00:00Z');return d.toLocaleDateString('es-MX',{day:'numeric',month:'short',timeZone:'UTC'})}
+
+/* ===== Panel del dueño ===== */
+const PTABS=[['menu','Menú'],['carne','Carnicería'],['avisos','Avisos y horario'],['qr','QR para imprimir'],['funciones','Funciones']];
+function renderPanel(){
+  $('#pTabs').innerHTML=PTABS.map(([k,t])=>`<button class="chip${S.ptab===k?' on':''}" data-ptab="${k}">${t}</button>`).join('');
+  const b=$('#pBody'), sucs=CONFIG.sucursales;
+  const selD=(v,attr)=>`<select ${attr} class="sel-${v}">${[['si','Disponible'],['agotado','Agotado'],['no','No se vende']].map(([k,t])=>`<option value="${k}"${v===k?' selected':''}>${t}</option>`).join('')}</select>`;
+  const note=`<div class="panel-note"><svg class="i" style="flex:none;margin-top:3px;color:var(--brasa)"><use href="#chk"/></svg><span>Cada cambio se aplica al instante en esta demostración. En el sitio real, el restaurante edita esta misma tabla en la app de Google Sheets y el sitio se actualiza en unos 5 minutos, sin llamar a nadie.</span></div>`;
+  if(S.ptab==='menu'){
+    let rows='',cat='',i=1;
+    S.menu.forEach(it=>{if(it.cat!==cat){cat=it.cat;rows+=`<tr class="cat-r"><td class="rn"></td><td colspan="${3+sucs.length}">${esc(cat)}</td></tr>`}
+      rows+=`<tr><td class="rn">${++i}</td><td><span>${esc(it.nombre)}</span></td><td style="width:120px"><input type="number" min="0" step="5" value="${it.precio}" data-pm="${it.id}" aria-label="Precio ${esc(it.nombre)}"></td>${sucs.map(s=>`<td style="width:150px">${selD(disp(it,s.id),`data-dm="${it.id}" data-s="${s.id}" aria-label="${esc(it.nombre)} en ${esc(s.nombre)}"`)}</td>`).join('')}</tr>`});
+    b.innerHTML=note+seeBtn('menu','Ver el menú en el sitio')+`<div class="sheet"><table><thead><tr><th class="rn">1</th><th>Platillo</th><th>Precio</th>${sucs.map(s=>`<th>${esc(s.nombre)}</th>`).join('')}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  } else if(S.ptab==='carne'){
+    b.innerHTML=note+seeBtn('carniceria','Ver la carnicería en el sitio')+`<div class="sheet"><table><thead><tr><th class="rn">1</th><th>Corte</th><th>Precio / kg</th>${sucs.map(s=>`<th>${esc(s.nombre)}</th>`).join('')}</tr></thead><tbody>${S.carne.map((c,i)=>`<tr><td class="rn">${i+2}</td><td><span>${esc(c.nombre)}</span></td><td style="width:140px"><input type="number" min="0" step="10" value="${c.kg}" data-pk="${c.id}" aria-label="Precio por kilo ${esc(c.nombre)}"></td>${sucs.map(s=>`<td style="width:150px">${selD(disp(c,s.id),`data-dk="${c.id}" data-s="${s.id}" aria-label="${esc(c.nombre)} en ${esc(s.nombre)}"`)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+  } else if(S.ptab==='avisos'){
+    b.innerHTML=note+`<div class="panel-grid">${sucs.map(s=>{const a=S.avisos[s.id];return `<div class="shell"><div class="core">
+      <div style="display:flex;justify-content:space-between;align-items:center"><h3>${esc(s.nombre)}</h3>${stHTML(estado(s))}</div>
+      <label class="sw">Mostrar platillo del día<input type="checkbox" data-aon="${s.id}"${a.activo?' checked':''}></label>
+      <div class="fld"><label for="at-${s.id}">Título del aviso</label><input class="in" id="at-${s.id}" data-at="${s.id}" value="${esc(a.titulo)}" maxlength="60"></div>
+      <div class="fld"><label for="ad-${s.id}">Detalle</label><textarea class="in" id="ad-${s.id}" data-ad="${s.id}" maxlength="140">${esc(a.detalle)}</textarea></div>
+      <div class="fld"><label for="ap-${s.id}">Precio especial (opcional)</label><input class="in mono" type="number" id="ap-${s.id}" data-ap="${s.id}" value="${a.precio??''}" placeholder="Sin precio"></div>
+      <label class="sw" style="padding-top:12px;border-top:1px solid var(--linea)">Cerrar hoy (evento privado)<input type="checkbox" data-close="${s.id}"${S.cerradoHoy[s.id]?' checked':''}></label>
+    </div></div>`}).join('')}</div>
+    <div class="shell" style="margin-top:16px"><div class="core" style="padding:20px"><span class="lbl">Días festivos cargados</span><div class="esp" style="margin-top:12px">${CONFIG.especiales.map(x=>`<div>${esc(x.nota)}<span>${fechaCorta(x.fecha)} · ${x.cerrado?'Cerrado':fmt12(x.abre)+' – '+fmt12(x.cierra)}</span></div>`).join('')}</div></div></div>`;
+  } else if(S.ptab==='qr'){
+    const tents=[];
+    tents.push({k:'En tu mesa',h:'Menú del día',u:CONFIG.siteUrl+'#menu',s:'Precios siempre actualizados'});
+    sucs.forEach(s=>tents.push({k:`Tizón ${s.nombre}`,h:'¿Te gustó? Déjanos tu reseña',u:s.resena||`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('Tizón '+s.dir)}`,s:'Toma 30 segundos'}));
+    b.innerHTML=`<div class="panel-note"><svg class="i" style="flex:none;margin-top:3px;color:var(--brasa)"><use href="#chk"/></svg><span>Se entregan listos para imprimir en tarjetas de mesa y en la caja. El QR del menú abre siempre la versión actual: si cambia un precio, no hay que reimprimir nada. El QR de reseñas lleva directo a la página de reseñas de Google de cada sucursal.</span></div>
+    <div class="qrs">${tents.map(t=>`<div class="tent"><span class="k">${esc(t.k)}</span><h4>${esc(t.h)}</h4><div class="qr">${qrSVG(t.u)}</div><small>${esc(t.s)}</small></div>`).join('')}</div>`;
+  } else {
+    const F=[['Multi-sucursal','Un solo sitio para todas las sucursales; cada una con su horario, WhatsApp y menú.','inicio'],['Menú autoadministrable','Precios y platillos desde Google Sheets, editables desde el celular.','menu'],['Agotado en tiempo real','Si se acaba un corte, se marca y deja de poder pedirse.','menu'],['Platillo del día','Aviso por sucursal en la portada y el menú.','inicio'],['Horario inteligente','Abierto ahora, cierra en X min, días festivos y cierres especiales.','sucursales'],['Pedidos por WhatsApp','Carrito con término, total y hora. Llega escrito al WhatsApp de la sucursal. Sin 25–30% de comisión de apps.','menu'],['Carnicería por kilo','Cortes crudos con precio por kg y peso ajustable.','carniceria'],['Tarjetas de regalo','Venta en línea con el link de Mercado Pago del restaurante. Dinero por adelantado.','regala'],['QR menú para mesas','El menú impreso que nunca queda viejo.','panel'],['QR de reseñas','Más reseñas en Google, mejor posición en Maps.','panel']];
+    b.innerHTML=`<div class="flist">${F.filter(f=>CONFIG.pedidos||f[0]!=='Pedidos por WhatsApp').map((f,i)=>`<a href="#${f[2]}" ${f[2]==='panel'?'data-ptab="qr"':''}><em>${i+1}</em><div><b>${f[0]}</b><span>${f[1]}</span></div></a>`).join('')}</div>
+    <div class="panel-grid"><div class="shell"><div class="core"><label class="sw">Mostrar etiquetas de funciones en el sitio<input type="checkbox" id="demoTog"${document.body.classList.contains('demo-off')?'':' checked'}></label><span class="note">Apáguelas para ver el sitio tal como lo verían sus clientes.</span></div></div>
+    <div class="shell"><div class="core"><span class="lbl">Reiniciar</span><button class="btn btn-ghost btn-sm" id="resetDemo" style="width:max-content">Restablecer datos de la demo${arr}</button></div></div></div>`;
+  }
+}
+function qrSVG(text){
+  try{const q=qrcode(0,'M');q.addData(text);q.make();const n=q.getModuleCount();let p='';
+    for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(q.isDark(r,c))p+=`M${c} ${r}h1v1h-1z`;
+    return `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" aria-label="Código QR"><path d="${p}" fill="#1b1511"/></svg>`;
+  }catch(e){return '<span style="font-size:11px">QR</span>'}
+}
+
+/* ===== Google Sheets (CSV publicado) ===== */
+function parseCSV(t){const rows=[];let r=[],f='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];
+  if(q){if(ch==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=ch}
+  else if(ch==='"')q=true;else if(ch===','){r.push(f);f=''}else if(ch==='\n'||ch==='\r'){if(ch==='\r'&&t[i+1]==='\n')i++;r.push(f);rows.push(r);r=[];f=''}else f+=ch}
+  if(f||r.length){r.push(f);rows.push(r)} const h=rows.shift().map(x=>x.trim().toLowerCase());
+  return rows.filter(x=>x.some(Boolean)).map(x=>Object.fromEntries(h.map((k,i)=>[k,(x[i]||'').trim()])));}
+async function loadSheets(){
+  const {menu,carniceria}=CONFIG.sheets; if(!menu&&!carniceria) return;
+  try{
+    if(menu){const r=parseCSV(await (await fetch(menu)).text());S.menu=r.map(x=>({id:slug(x.platillo),cat:x.categoria,nombre:x.platillo,desc:x.descripcion,precio:+x.precio||0,foto:x.foto||'',termino:/^s/i.test(x.termino||''),tag:x.etiqueta||'',...Object.fromEntries(CONFIG.sucursales.map(s=>[s.id,(x[s.id]||'si').toLowerCase()]))}))}
+    if(carniceria){const r=parseCSV(await (await fetch(carniceria)).text());S.carne=r.map(x=>({id:'k-'+slug(x.corte),nombre:x.corte,grado:x.grado||'',mad:x.maduracion||'',desc:x.descripcion||'',kg:+x.precio_kg||0,...Object.fromEntries(CONFIG.sucursales.map(s=>[s.id,(x[s.id]||'si').toLowerCase()]))}))}
+    S.fuente='sheets'; renderAll();
+  }catch(e){S.fuente='respaldo'}
+}
+
+/* ===== Router ===== */
+const PAGES=['inicio','menu','carniceria','regala','sucursales','panel'];
+function route(){
+  let h=(location.hash||'').replace('#',''); if(!PAGES.includes(h)) h='inicio';
+  $$('[data-page]').forEach(p=>p.classList.toggle('on',p.dataset.page===h));
+  $$('[data-nav]').forEach(a=>a.classList.toggle('act',a.dataset.nav===h));
+  $('#fabOwner').hidden=h==='panel';$('#fabOwner').classList.add('away');
+  document.body.classList.remove('menu-open');
+  openCart(false); renderPage(h); window.scrollTo({top:0,behavior:'instant'}); reveal(); flashEdit(h);
+}
+function renderPage(h){({inicio:renderInicio,menu:renderMenu,carniceria:renderCarne,regala:renderGift,sucursales:renderSucursales,panel:renderPanel}[h]||renderInicio)();renderSucursalesFooter()}
+function renderSucursalesFooter(){$('#ftSuc').innerHTML='<h4>Sucursales</h4>'+CONFIG.sucursales.map(s=>`<p style="margin-bottom:12px"><b style="color:var(--ceniza)">${esc(s.nombre)}</b><br>${esc(s.dir)}<br>${stHTML(estado(s))}</p>`).join('')}
+function curPage(){const h=(location.hash||'').replace('#','');return PAGES.includes(h)?h:'inicio'}
+function renderAll(){renderNav();renderPage(curPage());renderBadges();if(document.body.classList.contains('cart-open'))renderCart();reveal()}
+function renderNav(){
+  const s=cur(),e=estado(s); $('#sucName').textContent=s.nombre;
+  $('#fabWa').href=waLink(s.whatsapp,`Hola ${CONFIG.marca} ${s.nombre} 👋`);$('#sucSeg').innerHTML=CONFIG.sucursales.map(x=>`<button type="button" data-suc="${x.id}" class="${x.id===S.suc?'on':''}" aria-pressed="${x.id===S.suc}"><i class="${estado(x).tone}"></i>${esc(x.nombre)}</button>`).join(''); $('#sucDot').className='st '+e.tone;
+  $('#sucList').innerHTML=`<div class="lbl" style="padding:10px 12px 6px">Elige sucursal</div>`+CONFIG.sucursales.map(x=>`<button class="suc-opt${x.id===S.suc?' sel':''}" data-suc="${x.id}"><img src="${x.foto}" alt=""><div><b>${esc(x.nombre)}</b>${stHTML(estado(x))}<div style="font-size:12.5px;color:var(--tenue);margin-top:4px">${esc(x.zonaTxt)}</div></div></button>`).join('');
+}
+function setSuc(id){S.suc=id;save('tz_suc',id);popOpen(false);renderAll();swapIn();toast(`Sucursal ${cur().nombre} seleccionada`)}
+
+/* ===== Reveal on scroll (contenido visible en reposo) ===== */
+let io; function reveal(){
+  sxMark(); requestAnimationFrame(sx);
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){$$('.rv.pend').forEach(el=>el.classList.remove('pend'));return}
+  io=io||new IntersectionObserver(es=>{let n=0;es.forEach(e=>{if(e.isIntersecting||e.boundingClientRect.bottom<0){const el=e.target;el.style.transitionDelay=e.isIntersecting?Math.min(n++,5)*60+'ms':'0ms';el.classList.remove('pend');io.unobserve(el);setTimeout(()=>{el.style.transitionDelay=''},1100)}})},{threshold:0});
+  requestAnimationFrame(()=>$$('[data-page].on .rv').forEach(el=>{
+    if(!el.dataset.seen){el.dataset.seen=1;if(el.getBoundingClientRect().top>innerHeight*.92)el.classList.add('pend')}
+    if(el.classList.contains('pend'))io.observe(el);
+  }));
+  clearTimeout(reveal.t);reveal.t=setTimeout(()=>$$('[data-page].on .rv.pend').forEach(el=>{if(el.getBoundingClientRect().top<innerHeight){el.classList.remove('pend');io.unobserve(el)}}),1500);
+}
+
+/* ===== Eventos ===== */
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button,a'); if(!t) { if(!e.target.closest('#sucPop,#sucBtn')){popOpen(false)} return; }
+  const d=t.dataset;
+  if(t.id==='sucBtn'){popOpen(!$('#sucPop').classList.contains('open'));return}
+  if(!t.closest('#sucPop')) popOpen(false);
+  if(d.dsc){$('#heroAvisoM').scrollIntoView({behavior:RM()?'auto':'smooth',block:'start'});return}
+  if(d.hrs){S.hrsOpen.has(d.hrs)?S.hrsOpen.delete(d.hrs):S.hrsOpen.add(d.hrs);renderSucursales();return}
+  if(d.suc){setSuc(d.suc);return}
+  if(d.add){addMenu(d.add);return}
+  if(d.addk){addCarne(d.addk);return}
+  if(d.kg){const c=S.carne.find(x=>x.id===d.kg),p=c.paso||.25,mn=c.min||.5;S.kgSel[c.id]=Math.max(mn,Math.min(10,+((S.kgSel[c.id]??(c.min||1))+p*+d.d).toFixed(2)));renderCarne();return}
+  if(d.q){const l=S.cart.find(x=>x.key===d.q),gone=l.tipo==='carne'?+(l.kg+l.paso*+d.d).toFixed(2)<l.min:l.qty+(+d.d)<1;if(gone){dropLine(d.q,t);return}if(l.tipo==='carne')l.kg=+(l.kg+l.paso*+d.d).toFixed(2);else l.qty+=+d.d;save('tz_cart',S.cart);renderCart();renderBadges();return}
+  if(d.rm){dropLine(d.rm,t);return}
+  if(d.osuc){S.suc=d.osuc;save('tz_suc',S.suc);renderNav();renderPage(curPage());renderCart();renderBadges();swapIn();return}
+  if(d.ent){S.entrega=d.ent;renderCart();return}
+  if(d.cat){catOn=d.cat;$$('#cats .chip').forEach(c=>c.classList.toggle('on',c.dataset.cat===d.cat));$('#cat-'+slug(d.cat))?.scrollIntoView({behavior:'smooth',block:'start'});return}
+  if(d.amt){if(d.amt==='otro'){S.gift.otro=true}else{S.gift.otro=false;S.gift.monto=+d.amt}renderGift();return}
+  if(d.ptab&&t.tagName==='BUTTON'){S.ptab=d.ptab;renderPanel();return}
+  if(d.ptab&&t.tagName==='A'){e.preventDefault();S.ptab=d.ptab;renderPanel();return}
+  if(d.resena){const s=sucById(d.resena);if(s.resena){window.open(s.resena,'_blank')}else toast('En el sitio real abre la página de reseñas de Google de '+CONFIG.marca+' '+s.nombre);return}
+  if(d.close!==undefined&&t.tagName==='A'){openCart(false);return}
+  if(t.id==='cartBtn'||t.id==='fabCart'){openCart(true);return}
+  if(t.id==='drClose'){openCart(false);return}
+  if(t.id==='burger'){document.body.classList.toggle('menu-open');return}
+  if(t.id==='gPay'){e.preventDefault();if(CONFIG.mercadoPago){window.open(CONFIG.mercadoPago,'_blank')}else toast('Demo: aquí se abre el link de pago de Mercado Pago del restaurante. El dinero llega directo a su cuenta.');return}
+  if(t.id==='resetDemo'){S.menu=clone(MENU_BASE);S.carne=clone(CARNE_BASE);S.avisos=clone(AVISOS_BASE);S.cerradoHoy={valle:false,cumbres:false};S.cart=[];save('tz_cart',[]);renderAll();toast('Datos de la demo restablecidos');return}
+  if(t.id==='gWa'&&t.hasAttribute('disabled')){e.preventDefault();return}
+});
+$('#scrim').addEventListener('click',()=>openCart(false));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){openCart(false);popOpen(false);document.body.classList.remove('menu-open')}});
+document.addEventListener('input',e=>{
+  const t=e.target,d=t.dataset;
+  if(t.closest('#drawer')){refreshWa();return}
+  if(t.closest('#giftForm')){updGift();return}
+  if(d.at){S.avisos[d.at].titulo=t.value;afterEdit();return}
+  if(d.ad){S.avisos[d.ad].detalle=t.value;afterEdit();return}
+  if(d.ap){S.avisos[d.ap].precio=t.value?+t.value:null;afterEdit();return}
+});
+document.addEventListener('change',e=>{
+  const t=e.target,d=t.dataset;
+  if(d.term){const l=S.cart.find(x=>x.key===d.term);l.termino=t.value;save('tz_cart',S.cart);refreshWa();return}
+  if(d.pm){const it=S.menu.find(x=>x.id===d.pm);S.lastEdit={pg:'menu',id:it.id};it.precio=Math.max(0,+t.value||0);S.cart.forEach(l=>{if(l.key==='m:'+it.id)l.precio=it.precio});afterEdit(`${it.nombre}: ahora ${money(it.precio)}`);return}
+  if(d.dm){const it=S.menu.find(x=>x.id===d.dm);S.lastEdit={pg:'menu',id:it.id};it[d.s]=t.value;t.className='sel-'+t.value;afterEdit(`${it.nombre} en ${sucById(d.s).nombre}: ${t.selectedOptions[0].text.toLowerCase()}`);return}
+  if(d.pk){const c=S.carne.find(x=>x.id===d.pk);S.lastEdit={pg:'carniceria',id:c.id};c.kg=Math.max(0,+t.value||0);S.cart.forEach(l=>{if(l.key==='c:'+c.id)l.kgPrecio=c.kg});afterEdit(`${c.nombre}: ${money(c.kg)} por kg`);return}
+  if(d.dk){const c=S.carne.find(x=>x.id===d.dk);S.lastEdit={pg:'carniceria',id:c.id};c[d.s]=t.value;t.className='sel-'+t.value;afterEdit(`${c.nombre} en ${sucById(d.s).nombre}: ${t.selectedOptions[0].text.toLowerCase()}`);return}
+  if(d.aon){S.avisos[d.aon].activo=t.checked;afterEdit('Aviso actualizado');return}
+  if(d.close){S.cerradoHoy[d.close]=t.checked;afterEdit(t.checked?`${sucById(d.close).nombre} aparece como cerrada hoy`:`${sucById(d.close).nombre} vuelve a su horario normal`);renderPanel();return}
+  if(t.id==='demoTog'){document.body.classList.toggle('demo-off',!t.checked);save('tz_demo',t.checked);return}
+  if(t.id==='gWhen'||t.id==='gAmtOther'){updGift();return}
+});
+function afterEdit(msg){renderNav();renderBadges();if(msg)toast(msg+' · ya se ve en el sitio')}
+
+/* ===== Motion ===== */
+const EASE_OUT='cubic-bezier(0.23, 1, 0.32, 1)';
+const RM=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+const prevLbl={};
+const seeBtn=(h,t)=>`<div style="margin-top:14px"><a class="btn btn-fuego btn-sm" href="#${h}">${t}${arr}</a></div>`;
+S.hrsOpen=new Set();
+if(CONFIG.sucursales.length===2) document.body.classList.add('has-seg');
+/* Scroll-linked text (El Asador): titles fade + rise with the scroll */
+function sxMark(){$$('[data-page].on .stack.rv,[data-page].on .cat-h,[data-page].on p.lead.rv').forEach(el=>{el.classList.add('sx');el.classList.remove('rv','pend')})}
+let sxT=0;
+function sx(){sxT=0;if(RM())return;const H=innerHeight,Y=window.scrollY||document.documentElement.scrollTop||0;
+  $$('[data-page].on .sx').forEach(el=>{const t=el.getBoundingClientRect().top;if(t>H+60||t<-H)return;const e=Math.max(0,Math.min(1,(H-t)/(H*.5)));el.style.setProperty('--o',e.toFixed(3));el.style.setProperty('--ty',((1-e)*80).toFixed(1)+'px')});
+  const hx=$('[data-page="inicio"].on .hero-in>div:first-child');if(hx){const k=Math.min(1,Y/(H*.7));hx.style.transform=`translateY(${(Y*.35).toFixed(1)}px)`;hx.style.opacity=(1-k).toFixed(3)}}
+addEventListener('scroll',()=>{sxT||(sxT=requestAnimationFrame(sx))},{passive:true});
+addEventListener('resize',()=>sx());
+if(!CONFIG.pedidos) document.body.classList.add('sin-pedidos');
+(function(){const h=$('.hero h1');if(!h)return;let c=0;h.innerHTML=h.innerHTML.split(/<br\s*\/?>/i).map(l=>l.trim().split(/\s+/).map(w=>`<span class="w"><span style="--i:${c++}">${w}</span></span>`).join(' ')).join('<br>')})();
+let navT;
+function go(){const cv=$('#cv');if(RM()||!cv){route();return}
+  clearTimeout(navT);cv.classList.remove('out');cv.classList.add('on');
+  navT=setTimeout(()=>{route();cv.classList.remove('on');cv.classList.add('out');navT=setTimeout(()=>cv.classList.remove('out'),660)},720)}
+function popOpen(o){$('#sucPop').classList.toggle('open',o);$('#sucBtn').setAttribute('aria-expanded',String(o))}
+function bump(){
+  [['#cartN',1.25],['#fabCart',1.06]].forEach(([s,k])=>{const el=$(s);if(!el||!el.getClientRects().length)return;
+    const an=el.getAnimations();if(an.some(a=>a.animationName==='pop'))return;an.filter(a=>a.id==='bump').forEach(a=>a.cancel());
+    const a=el.animate(RM()?[{opacity:.4},{opacity:1}]:[{transform:'scale(1)'},{transform:`scale(${k})`,offset:.35},{transform:'scale(1)'}],{duration:RM()?150:260,easing:EASE_OUT});a.id='bump'});
+}
+function pulseIn(el){el.animate(RM()?[{opacity:0},{opacity:1}]:[{opacity:0,transform:'translateY(4px)'},{opacity:1,transform:'none'}],{duration:200,easing:EASE_OUT})}
+const SWAP={inicio:'#heroAviso,#heroAvisoM,#duo,#cortes,#miniTicket',menu:'#menuAviso,#menuList',carniceria:'#cuts,#carnSt',sucursales:'#spList'};
+function swapIn(){const sel=SWAP[curPage()];if(!sel)return;$$(sel).forEach(el=>el.animate(RM()?[{opacity:0},{opacity:1}]:[{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:RM()?150:260,easing:EASE_OUT}))}
+function dropLine(key,btn){
+  const done=()=>{S.cart=S.cart.filter(x=>x.key!==key);save('tz_cart',S.cart);renderCart();renderBadges()};
+  const ln=btn.closest('.ln');if(!ln||RM()){done();return}
+  ln.style.pointerEvents='none';
+  ln.animate([{opacity:1,transform:'none'},{opacity:0,transform:'translateX(16px)'}],{duration:180,easing:EASE_OUT,fill:'forwards'}).finished.then(done,done);
+}
+function flashEdit(h){
+  const e=S.lastEdit;if(!e||e.pg!==h)return;S.lastEdit=null;
+  setTimeout(()=>{const el=$(`[data-page="${h}"] [data-id="${e.id}"]`);if(!el)return;
+    el.scrollIntoView({block:'center',behavior:RM()?'auto':'smooth'});
+    el.classList.remove('just-edited');void el.offsetWidth;el.classList.add('just-edited');
+    setTimeout(()=>el.classList.remove('just-edited'),2300)},120);
+}
+
+/* ===== Inicio ===== */
+if(load('tz_demo',true)===false) document.body.classList.add('demo-off');
+let lastY=0,tk=false;addEventListener('scroll',()=>{if(tk)return;tk=true;requestAnimationFrame(()=>{const y=scrollY;$('#fabOwner').classList.toggle('away',(y>lastY+4&&y>120)||y<260);if(Math.abs(y-lastY)>4)lastY=y;tk=false})},{passive:true});
+window.addEventListener('hashchange',go);
+renderNav(); route(); renderBadges(); loadSheets();
+setInterval(()=>{renderNav();const h=curPage();if(h==='inicio'){setSt($('#heroSt'),estado(cur()),` · ${cur().nombre}`)}if(h==='sucursales')renderSucursales();if(h==='carniceria')setSt($('#carnSt'),estado(cur(),'carniceria'),` · Carnicería ${cur().nombre}`)},30000);
+</script>
+
+</body>
+</html>
